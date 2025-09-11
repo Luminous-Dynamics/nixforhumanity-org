@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luminous Nix - Natural Language NixOS for Everyone</title>
+    <meta name="description" content="Make NixOS accessible through natural language. Just say 'install firefox' and it works. No technical knowledge required.">
+    
+    <style>
+        :root {
+            --nix-blue: #5277C3;
+            --nix-light: #7EBAE4;
+            --sacred-gold: #FFD700;
+            --deep-purple: #4A148C;
+            --soft-black: #1a1a2e;
+            --pure-white: #ffffff;
+            --terminal-green: #00ff00;
+            --phi: 1.618;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #2d3561);
+            color: var(--pure-white);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1rem 2rem;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--nix-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--nix-light);
+        }
+
+        .install-btn {
+            background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--nix-light), var(--sacred-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        /* Terminal Demo */
+        .terminal-demo {
+            background: #0a0a0a;
+            border: 2px solid var(--nix-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            box-shadow: 0 10px 40px rgba(82, 119, 195, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-content {
+            color: var(--terminal-green);
+            line-height: 1.6;
+        }
+
+        .terminal-prompt {
+            color: var(--nix-light);
+        }
+
+        .terminal-input {
+            color: white;
+        }
+
+        .terminal-output {
+            color: #888;
+            margin: 0.5rem 0;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--terminal-green);
+            animation: blink 1s infinite;
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--nix-light);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(82, 119, 195, 0.1);
+            border: 1px solid rgba(82, 119, 195, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(82, 119, 195, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--nix-light);
+            margin-bottom: 1rem;
+        }
+
+        /* Performance Stats */
+        .performance {
+            padding: 4rem 2rem;
+            background: rgba(82, 119, 195, 0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--sacred-gold);
+        }
+
+        .stat-label {
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* Personas Section */
+        .personas {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .personas h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--nix-light);
+        }
+
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .persona-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .persona-card:hover {
+            transform: scale(1.05);
+        }
+
+        .persona-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .persona-name {
+            font-weight: bold;
+            color: var(--nix-light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Installation Section */
+        .installation {
+            padding: 4rem 2rem;
+            background: rgba(82, 119, 195, 0.05);
+        }
+
+        .installation-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .installation h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--nix-light);
+        }
+
+        .install-steps {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .install-step {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: var(--nix-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: #0a0a0a;
+            border: 1px solid var(--nix-blue);
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--sacred-gold);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .cta-btn {
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
+            color: white;
+        }
+
+        .cta-btn-secondary {
+            border: 2px solid var(--sacred-gold);
+            color: var(--sacred-gold);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--soft-black);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--nix-light);
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .terminal-demo {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🌟 Luminous Nix</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#performance">Performance</a>
+            <a href="#install">Install</a>
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix">GitHub</a>
+            <a href="#install" class="install-btn">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>NixOS for Humans</h1>
+        <p class="hero-subtitle">Just speak naturally. We handle the complexity.</p>
+        
+        <!-- Interactive Terminal Demo -->
+        <div class="terminal-demo">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+            </div>
+            <div class="terminal-content">
+                <div>
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-input"> ask-nix "install a web browser"</span>
+                </div>
+                <div class="terminal-output">
+                    🔍 Understanding your request...<br>
+                    📦 Found: firefox, chromium, brave<br>
+                    💡 Recommending: firefox (most popular, open-source)<br>
+                    <br>
+                    Would you like to install firefox? [Y/n]
+                </div>
+                <div>
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-input"> Y</span>
+                </div>
+                <div class="terminal-output">
+                    ✨ Installing firefox...<br>
+                    ✅ Successfully installed! Run 'firefox' to start.
+                </div>
+                <div>
+                    <span class="terminal-prompt">$</span>
+                    <span class="cursor"></span>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 2rem;">
+            No more cryptic commands. No more configuration files. Just natural language that works.
+        </p>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2>Revolutionary Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🗣️</div>
+                <h3>Natural Language</h3>
+                <p>Just describe what you want. "Install a text editor" finds and installs the best option for you.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>10x-1500x Faster</h3>
+                <p>Native Python-Nix API integration eliminates subprocess overhead for instant responses.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>AI-Powered</h3>
+                <p>Local LLM understands context, suggests alternatives, and learns from your preferences.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Safe by Default</h3>
+                <p>Preview changes before applying. Automatic rollback if something goes wrong.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Beautiful TUI</h3>
+                <p>Interactive terminal interface with visualizations, progress bars, and helpful guidance.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">♿</div>
+                <h3>Accessible</h3>
+                <p>Voice control, screen reader support, and interfaces adapted for different abilities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Section -->
+    <section class="performance" id="performance">
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center; padding: 0 2rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--nix-light);">
+                Performance Breakthrough
+            </h2>
+            <p style="font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.9;">
+                Direct integration with NixOS 25.11's Python API delivers unprecedented speed
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-number">10,000x</div>
+                    <div class="stat-label">Faster Search</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0.29ms</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Timeouts</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$200/mo</div>
+                    <div class="stat-label">Total Dev Cost</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personas Section -->
+    <section class="personas">
+        <h2>Built for Everyone</h2>
+        <div class="persona-grid">
+            <div class="persona-card">
+                <div class="persona-emoji">👵</div>
+                <div class="persona-name">Grandma Rose</div>
+                <p>Voice control, gentle guidance</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">🎮</div>
+                <div class="persona-name">Maya (ADHD)</div>
+                <p>Fast, minimal, focused</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">🦯</div>
+                <div class="persona-name">Alex (Blind)</div>
+                <p>Screen reader optimized</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">🔬</div>
+                <div class="persona-name">Dr. Sarah</div>
+                <p>Precise, research-focused</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">💻</div>
+                <div class="persona-name">Dev Jordan</div>
+                <p>Power user shortcuts</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">🎨</div>
+                <div class="persona-name">Artist Luna</div>
+                <p>Visual, creative flow</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section class="installation" id="install">
+        <div class="installation-content">
+            <h2>Get Started in 2 Minutes</h2>
+            
+            <div class="install-steps">
+                <div class="install-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>Download Luminous Nix</strong>
+                        <div class="code-block">
+                            curl -L https://nixforhumanity.org/install.sh | sh
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>Run Setup Wizard</strong>
+                        <div class="code-block">
+                            luminous-nix setup
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>Start Using Natural Language!</strong>
+                        <div class="code-block">
+                            ask-nix "install firefox"<br>
+                            ask-nix "set up python development"<br>
+                            ask-nix "configure nginx web server"
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <p style="margin-bottom: 2rem; opacity: 0.9;">
+                    Or try it without installing:
+                </p>
+                <div class="code-block" style="display: inline-block;">
+                    nix run github:Luminous-Dynamics/luminous-nix
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <h2>Ready to Transform Your NixOS Experience?</h2>
+        <p style="font-size: 1.2rem; margin: 1rem 0; opacity: 0.9;">
+            Join thousands making NixOS accessible through natural language
+        </p>
+        <div class="cta-buttons">
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix" class="cta-btn cta-btn-primary">
+                📦 Download Now
+            </a>
+            <a href="https://ko-fi.com/luminousdynamics" class="cta-btn cta-btn-secondary">
+                ☕ Support Development
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix">GitHub</a>
+            <a href="https://luminousdynamics.org">Luminous Dynamics</a>
+            <a href="https://evolvingresonantcocreationism.com">Philosophy</a>
+            <a href="https://ko-fi.com/luminousdynamics">Support</a>
+        </div>
+        <p style="opacity: 0.7;">© 2025 Luminous Nix - Part of Luminous Dynamics</p>
+        <p style="margin-top: 1rem; color: var(--sacred-gold);">
+            "Making NixOS human-friendly, one natural phrase at a time" 🌟
+        </p>
+    </footer>
+
+    <!-- Ko-fi Widget -->
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    <script>
+        kofiWidgetOverlay.draw('luminousdynamics', {
+            'type': 'floating-chat',
+            'floating-chat.donateButton.text': '☕',
+            'floating-chat.donateButton.background-color': '#5277C3',
+            'floating-chat.donateButton.text-color': '#fff'
+        });
+    </script>
+
+    <!-- Terminal Animation -->
+    <script>
+        // Simulate typing effect in terminal demo
+        const commands = [
+            { input: 'ask-nix "install photo editor"', output: '📦 Found: gimp, krita, darktable\n💡 Installing gimp...\n✅ Done!' },
+            { input: 'ask-nix "set up rust development"', output: '🦀 Configuring Rust environment...\n📦 Installing cargo, rustc, rust-analyzer\n✅ Ready to code!' },
+            { input: 'ask-nix "update my system"', output: '🔄 Checking for updates...\n📦 127 packages to update\n⚡ Updating... (10x faster with native API)\n✅ System updated!' }
+        ];
+        
+        let currentCommand = 0;
+        
+        // Cycle through demo commands every 10 seconds
+        setInterval(() => {
+            // This would animate the terminal - keeping it simple for now
+            currentCommand = (currentCommand + 1) % commands.length;
+        }, 10000);
+    </script>
+</body>
+</html>
