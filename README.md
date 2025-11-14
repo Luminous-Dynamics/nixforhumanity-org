@@ -68,6 +68,8 @@ This site is deployed via GitHub Pages. Any push to the main branch automaticall
 - `README.md` - This file
 - `CONTRIBUTING.md` - Contribution guidelines
 - `LICENSE` - MIT License
+- `CODE_OF_CONDUCT.md` - Community guidelines
+- `SECURITY.md` - Security policy and vulnerability reporting
 - `OG_IMAGE_README.md` - Instructions for OG image conversion
 
 #### GitHub Configuration
@@ -77,7 +79,7 @@ This site is deployed via GitHub Pages. Any push to the main branch automaticall
 
 ## 🤝 Contributing
 
-We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for our community standards.
 
 **Quick Start:**
 1. Fork the repository
@@ -90,6 +92,10 @@ We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for det
 - 🐛 [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
 - 💡 [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
 - ♿ [Accessibility Issue](.github/ISSUE_TEMPLATE/accessibility_issue.md)
+
+**Community:**
+- 📜 [Code of Conduct](CODE_OF_CONDUCT.md)
+- 🔒 [Security Policy](SECURITY.md)
 
 ## 💖 Support
 
