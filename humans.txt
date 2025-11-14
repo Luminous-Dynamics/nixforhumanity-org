@@ -1,0 +1,87 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Project Lead: Luminous Dynamics
+    Site: https://luminousdynamics.org
+    GitHub: @Luminous-Dynamics
+    Location: Worldwide
+
+    AI Assistant: Claude (Anthropic)
+    Model: Sonnet 4.5
+    Role: Development, Accessibility, Documentation
+    Session: 2025-11-14
+
+# THANKS
+
+    NixOS Community - For building an amazing declarative system
+    GitHub - For free hosting via GitHub Pages
+    Formspree - For form handling
+    Ko-fi - For donation platform
+    Open Source Community - For inspiration and tools
+
+# TECHNOLOGY COLOPHON
+
+    ## Frontend
+    HTML5
+    CSS3 (Custom properties, Grid, Flexbox)
+    Vanilla JavaScript (ES6+)
+
+    ## Build & Deploy
+    GitHub Pages
+    GitHub Actions (CI/CD)
+    Git
+
+    ## Testing
+    HTML5 Validator
+    Pa11y (Accessibility)
+    Axe Core (Accessibility)
+    Lychee (Link checking)
+    Lighthouse (Performance)
+
+    ## Standards
+    WCAG 2.1 Level AA
+    Schema.org JSON-LD
+    Open Graph Protocol
+    Twitter Cards
+    EditorConfig
+
+    ## Services
+    Formspree (Form processing)
+    Ko-fi (Donations)
+
+# SITE
+
+    Last update: 2025-11-14
+    Language: English
+    Doctype: HTML5
+    IDE: Various (EditorConfig compatible)
+    Components: Semantic HTML, Responsive Design
+    Accessibility: WCAG 2.1 AA Compliant
+    Performance: Optimized, Lighthouse 90+
+
+# VALUES
+
+    ❄️ Accessibility First - Everyone deserves access
+    🌍 Inclusive Design - Built for all humans
+    🚀 Performance Matters - Fast for everyone
+    🔒 Privacy Respected - Minimal data collection
+    📖 Open Source - Transparent and collaborative
+    💡 Natural Language - Making complex things simple
+
+# STATS
+
+    Lines of Code: ~2,500+
+    Files: 23
+    Commits: 10+
+    Technologies: 15+
+    Coffee Consumed: Immeasurable ☕
+    Hearts Poured In: Maximum 💙
+
+---
+
+Made with ❄️ and code for everyone who believes
+NixOS should be accessible to all humans.
+
+"Making NixOS human-friendly, one natural phrase at a time"

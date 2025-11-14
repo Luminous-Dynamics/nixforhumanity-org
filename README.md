@@ -102,6 +102,7 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 - `convert-og-image.html` - Tool to convert SVG to PNG
 - `robots.txt` - Search engine crawler instructions
 - `sitemap.xml` - Site structure for search engines
+- `humans.txt` - Project credits and team info
 - `CNAME` - Custom domain configuration
 - `.nojekyll` - Disables Jekyll processing
 
@@ -109,6 +110,8 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 - `README.md` - This file
 - `CONTRIBUTING.md` - Contribution guidelines
 - `CHANGELOG.md` - Version history and changes
+- `TESTING.md` - Comprehensive testing guide
+- `DEPLOYMENT.md` - Deployment and release guide
 - `LICENSE` - MIT License
 - `CODE_OF_CONDUCT.md` - Community guidelines
 - `SECURITY.md` - Security policy and vulnerability reporting
@@ -120,6 +123,9 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR template with checklists
 - `.github/workflows/validation.yml` - HTML validation and link checking
 - `.github/workflows/accessibility.yml` - Automated accessibility testing
+- `.github/workflows/release.yml` - Automated release creation
+- `.github/labels.yml` - Issue label configuration
+- `.editorconfig` - Code style consistency
 
 ## 🤝 Contributing
 
