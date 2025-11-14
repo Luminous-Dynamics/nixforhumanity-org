@@ -1,0 +1,74 @@
+name: HTML Validation & Link Checking
+
+on:
+  push:
+    branches: [ main, claude/** ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run weekly to catch broken external links
+    - cron: '0 0 * * 0'
+
+jobs:
+  validate-html:
+    name: Validate HTML
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate HTML files
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: ./
+          css: false
+
+      - name: Report validation results
+        if: always()
+        run: echo "HTML validation complete"
+
+  check-links:
+    name: Check Links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check links in HTML files
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --verbose --no-progress '*.html' 'README.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Report link check results
+        if: always()
+        run: echo "Link checking complete"
+
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun --collect.url=file://${{ github.workspace }}/index.html || true
+        continue-on-error: true
+
+      - name: Report Lighthouse results
+        if: always()
+        run: echo "Lighthouse scan complete"

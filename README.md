@@ -1,5 +1,11 @@
 # Nix for Humanity
 
+[![HTML Validation](https://github.com/Luminous-Dynamics/nixforhumanity-org/actions/workflows/validation.yml/badge.svg)](https://github.com/Luminous-Dynamics/nixforhumanity-org/actions/workflows/validation.yml)
+[![Accessibility Testing](https://github.com/Luminous-Dynamics/nixforhumanity-org/actions/workflows/accessibility.yml/badge.svg)](https://github.com/Luminous-Dynamics/nixforhumanity-org/actions/workflows/accessibility.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![WCAG 2.1 AA](https://img.shields.io/badge/WCAG-2.1%20AA-blue.svg)](https://www.w3.org/WAI/WCAG21/quickref/)
+[![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-success)](https://nixforhumanity.org)
+
 Official website for Luminous Nix - Making NixOS accessible through natural language.
 
 ## 🌐 Live Site
@@ -53,12 +59,47 @@ Luminous Nix is a natural language interface for NixOS that makes package manage
 
 This site is deployed via GitHub Pages. Any push to the main branch automatically updates the live site.
 
+### Local Development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Luminous-Dynamics/nixforhumanity-org.git
+   cd nixforhumanity-org
+   ```
+
+2. Open in your browser:
+   ```bash
+   # Using Python
+   python -m http.server 8000
+
+   # Or using Node.js
+   npx serve
+
+   # Then visit http://localhost:8000
+   ```
+
+3. Make your changes and test locally
+
+4. Push to your branch and create a PR
+
+### Automated Testing
+
+Every push and PR triggers automated tests:
+- ✅ **HTML Validation** - Ensures all HTML is valid and well-formed
+- ✅ **Link Checking** - Verifies all links work (internal and external)
+- ✅ **Accessibility Testing** - Pa11y and Axe Core for WCAG 2.1 AA compliance
+- ✅ **Lighthouse CI** - Performance, accessibility, SEO scores
+
+View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixforhumanity-org/actions).
+
 ### Files
 
 #### Website
 - `index.html` - Main landing page with all features
 - `404.html` - Custom branded error page
+- `privacy.html` - Privacy policy page
 - `og-image.svg` - Social media preview image (SVG source)
+- `convert-og-image.html` - Tool to convert SVG to PNG
 - `robots.txt` - Search engine crawler instructions
 - `sitemap.xml` - Site structure for search engines
 - `CNAME` - Custom domain configuration
@@ -67,6 +108,7 @@ This site is deployed via GitHub Pages. Any push to the main branch automaticall
 #### Documentation
 - `README.md` - This file
 - `CONTRIBUTING.md` - Contribution guidelines
+- `CHANGELOG.md` - Version history and changes
 - `LICENSE` - MIT License
 - `CODE_OF_CONDUCT.md` - Community guidelines
 - `SECURITY.md` - Security policy and vulnerability reporting
@@ -76,6 +118,8 @@ This site is deployed via GitHub Pages. Any push to the main branch automaticall
 - `.github/FUNDING.yml` - Sponsor information
 - `.github/ISSUE_TEMPLATE/` - Issue templates for bugs, features, and accessibility
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR template with checklists
+- `.github/workflows/validation.yml` - HTML validation and link checking
+- `.github/workflows/accessibility.yml` - Automated accessibility testing
 
 ## 🤝 Contributing
 

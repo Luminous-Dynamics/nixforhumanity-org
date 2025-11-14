@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Converter - Luminous Nix</title>
+    <style>
+        :root {
+            --nix-blue: #5277C3;
+            --nix-light: #7EBAE4;
+            --soft-black: #1a1a2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #2d3561);
+            color: white;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--nix-light), #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .instructions {
+            background: rgba(82, 119, 195, 0.2);
+            border-left: 4px solid var(--nix-light);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+        }
+
+        .preview {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .preview img {
+            max-width: 100%;
+            border: 2px solid var(--nix-blue);
+            border-radius: 10px;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            margin: 2rem auto;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #status {
+            text-align: center;
+            margin: 1rem 0;
+            min-height: 1.5rem;
+        }
+
+        .success {
+            color: #27c93f;
+        }
+
+        .error {
+            color: #ff5f56;
+        }
+
+        .info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--nix-light);
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <h1>❄️ OG Image Converter</h1>
+
+        <div class="instructions">
+            <h3 style="margin-bottom: 0.5rem;">📋 Instructions</h3>
+            <ol>
+                <li>Click the "Convert SVG to PNG" button below</li>
+                <li>The image will be automatically downloaded as <code>og-image.png</code></li>
+                <li>Upload the PNG file to your repository</li>
+                <li>Test with <a href="https://developers.facebook.com/tools/debug/" target="_blank" style="color: #FFD700;">Facebook Debugger</a> and <a href="https://cards-dev.twitter.com/validator" target="_blank" style="color: #FFD700;">Twitter Validator</a></li>
+            </ol>
+        </div>
+
+        <div class="preview">
+            <h3 style="margin-bottom: 1rem;">Preview</h3>
+            <img id="svgPreview" src="og-image.svg" alt="OG Image Preview">
+        </div>
+
+        <button id="convertBtn" onclick="convertSVGtoPNG()">Convert SVG to PNG (1200x630)</button>
+
+        <div id="status"></div>
+
+        <div class="info">
+            <p><strong>Technical Details:</strong></p>
+            <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                <li>Output Size: 1200 x 630 pixels</li>
+                <li>Format: PNG</li>
+                <li>Aspect Ratio: 1.91:1 (Perfect for Open Graph)</li>
+                <li>Quality: High resolution for social media</li>
+            </ul>
+        </div>
+
+        <canvas id="canvas" width="1200" height="630"></canvas>
+    </div>
+
+    <script>
+        async function convertSVGtoPNG() {
+            const button = document.getElementById('convertBtn');
+            const status = document.getElementById('status');
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            try {
+                button.disabled = true;
+                status.innerHTML = '<span>Loading SVG...</span>';
+
+                // Fetch the SVG
+                const response = await fetch('og-image.svg');
+                const svgText = await response.text();
+
+                // Create a blob from the SVG
+                const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(svgBlob);
+
+                // Create an image
+                const img = new Image();
+                img.onload = function() {
+                    status.innerHTML = '<span>Converting to PNG...</span>';
+
+                    // Draw to canvas
+                    ctx.fillStyle = '#1a1a2e';
+                    ctx.fillRect(0, 0, 1200, 630);
+                    ctx.drawImage(img, 0, 0, 1200, 630);
+
+                    // Convert to PNG and download
+                    canvas.toBlob(function(blob) {
+                        const link = document.createElement('a');
+                        link.download = 'og-image.png';
+                        link.href = URL.createObjectURL(blob);
+                        link.click();
+
+                        status.innerHTML = '<span class="success">✅ Successfully converted and downloaded og-image.png!</span>';
+                        button.disabled = false;
+
+                        // Clean up
+                        URL.revokeObjectURL(url);
+                        URL.revokeObjectURL(link.href);
+                    }, 'image/png');
+                };
+
+                img.onerror = function() {
+                    status.innerHTML = '<span class="error">❌ Error loading SVG. Please ensure og-image.svg exists.</span>';
+                    button.disabled = false;
+                    URL.revokeObjectURL(url);
+                };
+
+                img.src = url;
+
+            } catch (error) {
+                status.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+                button.disabled = false;
+                console.error('Conversion error:', error);
+            }
+        }
+
+        // Optional: Auto-load preview
+        window.addEventListener('load', function() {
+            const preview = document.getElementById('svgPreview');
+            if (!preview.complete || preview.naturalWidth === 0) {
+                preview.onerror = function() {
+                    document.querySelector('.preview').innerHTML =
+                        '<p class="error">⚠️ og-image.svg not found. Please ensure it exists in the same directory.</p>';
+                };
+            }
+        });
+    </script>
+</body>
+</html>
