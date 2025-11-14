@@ -1,0 +1,45 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d3561;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7EBAE4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Terminal window -->
+  <rect x="100" y="180" width="1000" height="300" rx="10" fill="#0a0a0a" stroke="#5277C3" stroke-width="2"/>
+
+  <!-- Terminal dots -->
+  <circle cx="125" cy="205" r="8" fill="#ff5f56"/>
+  <circle cx="155" cy="205" r="8" fill="#ffbd2e"/>
+  <circle cx="185" cy="205" r="8" fill="#27c93f"/>
+
+  <!-- Terminal content -->
+  <text x="125" y="260" font-family="'Courier New', monospace" font-size="24" fill="#7EBAE4">$</text>
+  <text x="150" y="260" font-family="'Courier New', monospace" font-size="24" fill="#ffffff">ask-nix "install firefox"</text>
+
+  <text x="125" y="310" font-family="'Courier New', monospace" font-size="20" fill="#aaaaaa">🔍 Understanding your request...</text>
+  <text x="125" y="340" font-family="'Courier New', monospace" font-size="20" fill="#aaaaaa">📦 Found: firefox</text>
+  <text x="125" y="370" font-family="'Courier New', monospace" font-size="20" fill="#aaaaaa">✨ Installing...</text>
+  <text x="125" y="420" font-family="'Courier New', monospace" font-size="20" fill="#00ff00">✅ Done!</text>
+
+  <!-- Title -->
+  <text x="600" y="100" font-family="'Inter', -apple-system, sans-serif" font-size="64" font-weight="bold" fill="url(#text-gradient)" text-anchor="middle">Luminous Nix</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="145" font-family="'Inter', -apple-system, sans-serif" font-size="32" fill="#ffffff" text-anchor="middle" opacity="0.9">NixOS for Humans</text>
+
+  <!-- Footer -->
+  <text x="600" y="560" font-family="'Inter', -apple-system, sans-serif" font-size="24" fill="#7EBAE4" text-anchor="middle">nixforhumanity.org</text>
+
+  <!-- Snowflake icon -->
+  <text x="50" y="90" font-size="64">❄️</text>
+</svg>

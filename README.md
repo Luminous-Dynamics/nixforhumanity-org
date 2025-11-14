@@ -55,23 +55,41 @@ This site is deployed via GitHub Pages. Any push to the main branch automaticall
 
 ### Files
 
-- `index.html` - Main landing page
-- `404.html` - Custom error page
+#### Website
+- `index.html` - Main landing page with all features
+- `404.html` - Custom branded error page
+- `og-image.svg` - Social media preview image (SVG source)
 - `robots.txt` - Search engine crawler instructions
 - `sitemap.xml` - Site structure for search engines
 - `CNAME` - Custom domain configuration
 - `.nojekyll` - Disables Jekyll processing
 
+#### Documentation
+- `README.md` - This file
+- `CONTRIBUTING.md` - Contribution guidelines
+- `LICENSE` - MIT License
+- `OG_IMAGE_README.md` - Instructions for OG image conversion
+
+#### GitHub Configuration
+- `.github/FUNDING.yml` - Sponsor information
+- `.github/ISSUE_TEMPLATE/` - Issue templates for bugs, features, and accessibility
+- `.github/PULL_REQUEST_TEMPLATE.md` - PR template with checklists
+
 ## 🤝 Contributing
 
-We welcome contributions! Whether it's:
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
-- Reporting bugs
-- Suggesting enhancements
-- Improving documentation
-- Submitting pull requests
+**Quick Start:**
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes following our guidelines
+4. Test thoroughly (responsive, accessible, performant)
+5. Submit a PR using our template
 
-Visit our [GitHub repository](https://github.com/Luminous-Dynamics/luminous-nix) to get started.
+**Issue Templates:**
+- 🐛 [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
+- 💡 [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
+- ♿ [Accessibility Issue](.github/ISSUE_TEMPLATE/accessibility_issue.md)
 
 ## 💖 Support
 
@@ -79,6 +97,8 @@ Visit our [GitHub repository](https://github.com/Luminous-Dynamics/luminous-nix)
 - 💝 [GitHub Sponsors](https://github.com/sponsors/Luminous-Dynamics)
 
 ## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 Part of the Luminous Dynamics ecosystem.
 
