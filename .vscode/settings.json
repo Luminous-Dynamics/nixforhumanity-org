@@ -1,0 +1,67 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.rulers": [80, 120],
+  "editor.wordWrap": "on",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.encoding": "utf8",
+
+  "html.format.indentInnerHtml": true,
+  "html.format.wrapLineLength": 120,
+  "html.format.wrapAttributes": "auto",
+
+  "css.lint.unknownAtRules": "ignore",
+
+  "javascript.format.semicolons": "insert",
+
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": false
+  },
+
+  "[yaml]": {
+    "editor.tabSize": 2
+  },
+
+  "[json]": {
+    "editor.tabSize": 2
+  },
+
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.github": false
+  },
+
+  "files.exclude": {
+    "**/.git": true
+  },
+
+  "emmet.includeLanguages": {
+    "html": "html"
+  },
+
+  "liveServer.settings.port": 8000,
+  "liveServer.settings.donotShowInfoMsg": true,
+
+  "cSpell.words": [
+    "Luminous",
+    "NixOS",
+    "nixforhumanity",
+    "Formspree",
+    "Ko-fi",
+    "WCAG",
+    "a11y",
+    "ARIA",
+    "kofi",
+    "dotall",
+    "editorconfig"
+  ]
+}

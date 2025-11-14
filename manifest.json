@@ -1,0 +1,49 @@
+{
+  "name": "Luminous Nix - Natural Language NixOS",
+  "short_name": "Luminous Nix",
+  "description": "Make NixOS accessible through natural language. Just say 'install firefox' and it works.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#5277C3",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities", "developer tools"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>❄️</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Beta Signup",
+      "short_name": "Join Beta",
+      "description": "Join the Luminous Nix beta program",
+      "url": "/#beta-heading",
+      "icons": []
+    },
+    {
+      "name": "Documentation",
+      "short_name": "Docs",
+      "description": "View project documentation",
+      "url": "https://github.com/Luminous-Dynamics/luminous-nix",
+      "icons": []
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "scope": "/",
+  "iarc_rating_id": ""
+}

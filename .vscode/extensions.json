@@ -1,0 +1,33 @@
+{
+  "recommendations": [
+    // Essential
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+
+    // HTML/CSS
+    "ecmel.vscode-html-css",
+    "zignd.html-css-class-completion",
+    "pranaygp.vscode-css-peek",
+
+    // Accessibility
+    "deque-systems.vscode-axe-linter",
+
+    // Live server for testing
+    "ritwickdey.liveserver",
+
+    // Markdown
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+
+    // Git
+    "eamodio.gitlens",
+
+    // Spell check
+    "streetsidesoftware.code-spell-checker",
+
+    // YAML
+    "redhat.vscode-yaml"
+  ],
+  "unwantedRecommendations": []
+}

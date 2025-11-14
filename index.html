@@ -25,6 +25,13 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>❄️</text></svg>">
     <link rel="canonical" href="https://nixforhumanity.org/">
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Luminous Nix">
+
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://storage.ko-fi.com">
     <link rel="preconnect" href="https://formspree.io">
@@ -902,6 +909,19 @@
                     'floating-chat.donateButton.text': '☕',
                     'floating-chat.donateButton.background-color': '#5277C3',
                     'floating-chat.donateButton.text-color': '#fff'
+                });
+            }
+
+            // Register Service Worker for PWA functionality
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then((registration) => {
+                            console.log('✅ Service Worker registered:', registration.scope);
+                        })
+                        .catch((error) => {
+                            console.log('❌ Service Worker registration failed:', error);
+                        });
                 });
             }
         });
