@@ -5,12 +5,27 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG-2.1%20AA-blue.svg)](https://www.w3.org/WAI/WCAG21/quickref/)
 [![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-success)](https://nixforhumanity.org)
+[![PWA](https://img.shields.io/badge/PWA-Enabled-5A0FC8.svg)](https://web.dev/progressive-web-apps/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-Official website for Luminous Nix - Making NixOS accessible through natural language.
+> 🌟 **Making NixOS accessible to everyone through natural language** 🌟
+
+Official website for Luminous Nix - A revolutionary natural language interface for NixOS that works for humans of all technical levels and abilities.
 
 ## 🌐 Live Site
 
 Visit us at [nixforhumanity.org](https://nixforhumanity.org)
+
+## 🔗 Quick Links
+
+- 📖 **[FAQ](FAQ.md)** - Frequently asked questions
+- 🗺️ **[Roadmap](ROADMAP.md)** - Project vision and timeline
+- 🤝 **[Contributing](CONTRIBUTING.md)** - How to contribute
+- 🧪 **[Testing Guide](TESTING.md)** - Testing procedures
+- 🚀 **[Deployment Guide](DEPLOYMENT.md)** - Deploy and release
+- 🔧 **[Maintenance](MAINTENANCE.md)** - Ongoing maintenance
+- 🌟 **[Contributors](CONTRIBUTORS.md)** - Recognition and thanks
+- 📝 **[Changelog](CHANGELOG.md)** - Version history
 
 ## 📋 About
 
@@ -94,10 +109,12 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 
 ### Files
 
-#### Website
-- `index.html` - Main landing page with all features
+#### Website (15 files)
+- `index.html` - Main landing page (WCAG AA, PWA-enabled)
 - `404.html` - Custom branded error page
 - `privacy.html` - Privacy policy page
+- `manifest.json` - PWA manifest for installable app
+- `sw.js` - Service worker for offline capability
 - `og-image.svg` - Social media preview image (SVG source)
 - `convert-og-image.html` - Tool to convert SVG to PNG
 - `robots.txt` - Search engine crawler instructions
@@ -105,27 +122,36 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 - `humans.txt` - Project credits and team info
 - `CNAME` - Custom domain configuration
 - `.nojekyll` - Disables Jekyll processing
+- `.lighthouserc.json` - Performance budget configuration
+- `.pre-commit-config.yaml` - Pre-commit hooks
+- `.editorconfig` - Code style consistency
 
-#### Documentation
-- `README.md` - This file
+#### Documentation (12 files)
+- `README.md` - This file (comprehensive project overview)
+- `FAQ.md` - Frequently asked questions
+- `ROADMAP.md` - Project vision and timeline
 - `CONTRIBUTING.md` - Contribution guidelines
+- `CONTRIBUTORS.md` - Contributor recognition
 - `CHANGELOG.md` - Version history and changes
 - `TESTING.md` - Comprehensive testing guide
 - `DEPLOYMENT.md` - Deployment and release guide
+- `MAINTENANCE.md` - Ongoing maintenance guide
 - `LICENSE` - MIT License
 - `CODE_OF_CONDUCT.md` - Community guidelines
 - `SECURITY.md` - Security policy and vulnerability reporting
-- `OG_IMAGE_README.md` - Instructions for OG image conversion
 
-#### GitHub Configuration
+#### GitHub Configuration (12+ files)
 - `.github/FUNDING.yml` - Sponsor information
-- `.github/ISSUE_TEMPLATE/` - Issue templates for bugs, features, and accessibility
+- `.github/CODEOWNERS` - Code ownership and review assignments
+- `.github/dependabot.yml` - Dependency update automation
+- `.github/ISSUE_TEMPLATE/` - Issue templates (bugs, features, accessibility)
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR template with checklists
 - `.github/workflows/validation.yml` - HTML validation and link checking
 - `.github/workflows/accessibility.yml` - Automated accessibility testing
 - `.github/workflows/release.yml` - Automated release creation
 - `.github/labels.yml` - Issue label configuration
-- `.editorconfig` - Code style consistency
+- `.vscode/settings.json` - VS Code workspace configuration
+- `.vscode/extensions.json` - Recommended extensions
 
 ## 🤝 Contributing
 

@@ -1,0 +1,34 @@
+# Code Owners for nixforhumanity.org
+#
+# These owners will be automatically requested for review when
+# someone opens a pull request that modifies the specified files.
+#
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything
+* @Luminous-Dynamics
+
+# Website files - require accessibility review
+*.html @Luminous-Dynamics
+*.css @Luminous-Dynamics
+manifest.json @Luminous-Dynamics
+sw.js @Luminous-Dynamics
+
+# Documentation - community can help
+*.md @Luminous-Dynamics
+
+# Critical documentation - extra review
+/SECURITY.md @Luminous-Dynamics
+/CODE_OF_CONDUCT.md @Luminous-Dynamics
+/LICENSE @Luminous-Dynamics
+
+# GitHub workflows - require careful review
+/.github/workflows/ @Luminous-Dynamics
+
+# Configuration files
+/.editorconfig @Luminous-Dynamics
+/.pre-commit-config.yaml @Luminous-Dynamics
+/.lighthouserc.json @Luminous-Dynamics
+
+# VS Code settings - lower priority
+/.vscode/ @Luminous-Dynamics
