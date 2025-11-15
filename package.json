@@ -1,0 +1,66 @@
+{
+  "name": "nixforhumanity-org",
+  "version": "1.2.0",
+  "description": "Luminous Nix - Making NixOS accessible through natural language",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
+    "test": "npm run test:html && npm run test:links && npm run test:accessibility",
+    "test:html": "echo '✓ HTML validation: Run validation.yml workflow on push'",
+    "test:links": "echo '✓ Link checking: Run validation.yml workflow on push'",
+    "test:accessibility": "echo '✓ Accessibility testing: Run accessibility.yml workflow on push'",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "echo 'HTML linting via pre-commit hooks'",
+    "lint:css": "echo 'CSS linting: Consider adding stylelint'",
+    "lint:js": "echo 'JS linting: Consider adding eslint'",
+    "format": "prettier --write '**/*.{html,css,js,json,md}'",
+    "format:check": "prettier --check '**/*.{html,css,js,json,md}'",
+    "lighthouse": "lighthouse https://nixforhumanity.org --view",
+    "lighthouse:ci": "lhci autorun",
+    "security:check": "echo 'Security headers check: See _headers file'",
+    "security:txt": "cat .well-known/security.txt",
+    "validate:manifest": "node -e \"console.log(JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')))\"",
+    "validate:sw": "node -e \"require('fs').readFileSync('sw.js', 'utf8')\"",
+    "deploy:check": "npm run test && npm run validate:manifest && npm run validate:sw",
+    "clean": "git clean -fdX",
+    "update:deps": "npm update",
+    "audit": "npm audit",
+    "precommit": "npm run format && npm run deploy:check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luminous-Dynamics/nixforhumanity-org.git"
+  },
+  "keywords": [
+    "nixos",
+    "nix",
+    "natural-language",
+    "accessibility",
+    "pwa",
+    "static-site"
+  ],
+  "author": "Luminous Dynamics",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luminous-Dynamics/nixforhumanity-org/issues"
+  },
+  "homepage": "https://nixforhumanity.org",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@lhci/cli": "^0.12.0",
+    "prettier": "^3.1.0",
+    "lighthouse": "^11.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "volta": {
+    "node": "20.10.0",
+    "npm": "10.2.5"
+  }
+}

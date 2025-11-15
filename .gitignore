@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+build/
+*.min.css
+*.min.js
+*.css.map
+*.js.map
+
+# Compression artifacts
+*.br
+*.gz
+
+# Testing
+test-results/
+playwright-report/
+.playwright/
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Lighthouse
+.lighthouseci/
+lhci-reports/
+
+# Local configuration
+.local/

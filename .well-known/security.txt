@@ -1,0 +1,46 @@
+# Security Contact Information for nixforhumanity.org
+# Based on RFC 9116: https://www.rfc-editor.org/rfc/rfc9116.html
+
+Contact: https://github.com/Luminous-Dynamics/nixforhumanity-org/security/advisories/new
+Contact: mailto:security@luminousdynamics.org
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://nixforhumanity.org/.well-known/security.txt
+Policy: https://github.com/Luminous-Dynamics/nixforhumanity-org/blob/main/SECURITY.md
+Acknowledgments: https://github.com/Luminous-Dynamics/nixforhumanity-org/blob/main/CONTRIBUTORS.md
+
+# Encryption: <PGP key URL if available>
+
+# Scope
+# This security policy applies to:
+# - https://nixforhumanity.org
+# - All subdomains of nixforhumanity.org
+# - GitHub repository: https://github.com/Luminous-Dynamics/nixforhumanity-org
+
+# Response Time
+# We aim to acknowledge security reports within 48 hours
+# and provide an initial assessment within 7 days.
+
+# Safe Harbor
+# We support coordinated disclosure and will not pursue legal action
+# against security researchers who:
+# - Make a good faith effort to avoid privacy violations and data destruction
+# - Contact us before publicly disclosing the vulnerability
+# - Do not exploit the vulnerability beyond what is necessary to demonstrate it
+
+# Out of Scope
+# - Theoretical vulnerabilities without proof of concept
+# - Social engineering attacks
+# - Physical attacks against our infrastructure
+# - Denial of Service (DoS/DDoS) attacks
+# - Spam or social engineering of our team members
+
+# Reporting Guidelines
+# Please include in your report:
+# 1. Description of the vulnerability
+# 2. Steps to reproduce
+# 3. Potential impact
+# 4. Suggested remediation (if any)
+# 5. Your contact information for follow-up
+
+# Thank you for helping keep nixforhumanity.org and our users safe!

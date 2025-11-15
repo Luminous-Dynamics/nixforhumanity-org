@@ -26,6 +26,8 @@ Visit us at [nixforhumanity.org](https://nixforhumanity.org)
 - 🔧 **[Maintenance](MAINTENANCE.md)** - Ongoing maintenance
 - 🌟 **[Contributors](CONTRIBUTORS.md)** - Recognition and thanks
 - 📝 **[Changelog](CHANGELOG.md)** - Version history
+- 📊 **[Analytics Guide](ANALYTICS.md)** - Privacy-first analytics setup
+- ⚡ **[Build & Optimization](BUILD_OPTIMIZATION.md)** - Performance optimization
 
 ## 📋 About
 
@@ -41,34 +43,36 @@ Luminous Nix is a natural language interface for NixOS that makes package manage
 
 ## 🛠️ Recent Improvements
 
-### Accessibility
-- ✅ Added skip-to-content link for keyboard navigation
-- ✅ Implemented proper ARIA labels throughout
-- ✅ Added visible focus states for all interactive elements
-- ✅ Form inputs now have proper labels (not just placeholders)
-- ✅ Improved color contrast for better readability
-- ✅ Added semantic HTML with proper landmarks
+### Phase 4: Performance & Developer Experience (Latest)
+- ✅ **Dark Mode**: Full dark/light mode toggle with system preference detection
+- ✅ **External Assets**: CSS and JS moved to separate files for better caching
+- ✅ **Security Hardening**: CSP headers, SRI, .well-known/security.txt
+- ✅ **E2E Testing**: Comprehensive Playwright test suite (homepage, forms, mobile, dark mode)
+- ✅ **Enhanced SEO**: Triple JSON-LD structured data (SoftwareApplication, Organization, WebPage)
+- ✅ **Blog Infrastructure**: Blog template and RSS feed setup
+- ✅ **Developer Tools**: package.json with 20+ npm scripts for development
+- ✅ **Documentation**: Analytics guide, build & optimization guide
+- ✅ **Code Quality**: Prettier config, enhanced .gitignore, pre-commit hooks
 
-### Mobile Experience
-- ✅ Functional hamburger menu for mobile navigation
-- ✅ Responsive design improvements
-- ✅ Touch-friendly interface elements
-- ✅ Mobile menu closes when clicking outside
+### Phase 3: Strategic Documentation
+- ✅ **Roadmap**: 5-phase project vision from Foundation to Ecosystem Growth
+- ✅ **Maintenance Guide**: Daily to annual maintenance schedules
+- ✅ **Contributor Recognition**: Multi-tier contributor system
+- ✅ **Automation**: CODEOWNERS and Dependabot configuration
 
-### SEO & Performance
-- ✅ Added structured data (Schema.org JSON-LD)
-- ✅ Complete Open Graph and Twitter Card metadata
-- ✅ robots.txt and sitemap.xml
-- ✅ Preconnect hints for external resources
-- ✅ Optimized script loading with defer
-- ✅ Canonical URL and theme color
+### Phase 2: Progressive Web App
+- ✅ **PWA Capabilities**: Manifest, service worker, offline support
+- ✅ **Installable**: Works as standalone app on all platforms
+- ✅ **FAQ**: 200+ lines answering common questions
+- ✅ **Performance Budgets**: Lighthouse CI with strict thresholds
+- ✅ **Developer Setup**: VS Code settings, recommended extensions
 
-### User Experience
-- ✅ Working terminal animation that cycles demos
-- ✅ Custom 404 error page
-- ✅ Privacy policy link on form
-- ✅ External links open in new tabs with security
-- ✅ Improved form validation and UX
+### Phase 1: Accessibility & Foundation
+- ✅ **WCAG 2.1 AA Compliance**: Full accessibility support
+- ✅ **Mobile Menu**: Functional hamburger navigation
+- ✅ **SEO**: Structured data, Open Graph, Twitter Cards
+- ✅ **Testing**: Automated HTML, accessibility, and link validation
+- ✅ **Community**: Code of Conduct, Security Policy, Issue templates
 
 ## 🚀 Deployment
 
@@ -109,8 +113,10 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 
 ### Files
 
-#### Website (15 files)
-- `index.html` - Main landing page (WCAG AA, PWA-enabled)
+#### Website (22 files)
+- `index.html` - Main landing page (WCAG AA, PWA-enabled, dark mode)
+- `styles.css` - External stylesheet with dark mode support
+- `script.js` - External JavaScript (PWA, dark mode, mobile menu)
 - `404.html` - Custom branded error page
 - `privacy.html` - Privacy policy page
 - `manifest.json` - PWA manifest for installable app
@@ -120,13 +126,18 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 - `robots.txt` - Search engine crawler instructions
 - `sitemap.xml` - Site structure for search engines
 - `humans.txt` - Project credits and team info
+- `_headers` - Security headers and CSP configuration
+- `.well-known/security.txt` - Security disclosure policy
 - `CNAME` - Custom domain configuration
 - `.nojekyll` - Disables Jekyll processing
 - `.lighthouserc.json` - Performance budget configuration
 - `.pre-commit-config.yaml` - Pre-commit hooks
 - `.editorconfig` - Code style consistency
+- `.prettierrc` - Code formatting configuration
+- `.gitignore` - Git ignore patterns
+- `package.json` - Development scripts and dependencies
 
-#### Documentation (12 files)
+#### Documentation (16 files)
 - `README.md` - This file (comprehensive project overview)
 - `FAQ.md` - Frequently asked questions
 - `ROADMAP.md` - Project vision and timeline
@@ -136,9 +147,13 @@ View test results in the [Actions tab](https://github.com/Luminous-Dynamics/nixf
 - `TESTING.md` - Comprehensive testing guide
 - `DEPLOYMENT.md` - Deployment and release guide
 - `MAINTENANCE.md` - Ongoing maintenance guide
+- `ANALYTICS.md` - Privacy-first analytics and monitoring
+- `BUILD_OPTIMIZATION.md` - Performance optimization guide
+- `blog/POST_TEMPLATE.md` - Blog post template and guidelines
 - `LICENSE` - MIT License
 - `CODE_OF_CONDUCT.md` - Community guidelines
 - `SECURITY.md` - Security policy and vulnerability reporting
+- `OG_IMAGE_README.md` - Social image creation guide
 
 #### GitHub Configuration (12+ files)
 - `.github/FUNDING.yml` - Sponsor information

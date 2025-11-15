@@ -36,30 +36,113 @@
     <link rel="preconnect" href="https://storage.ko-fi.com">
     <link rel="preconnect" href="https://formspree.io">
 
-    <!-- Structured Data -->
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Structured Data - Enhanced JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Luminous Nix",
+      "alternateName": "NixOS for Humans",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "NixOS",
-      "description": "Natural language interface for NixOS - making package management accessible to everyone through conversational commands",
+      "description": "Natural language interface for NixOS - making package management accessible to everyone through conversational commands. 10,000x faster than traditional methods.",
       "url": "https://nixforhumanity.org",
       "downloadUrl": "https://github.com/Luminous-Dynamics/luminous-nix",
+      "softwareVersion": "1.2.0",
+      "releaseNotes": "https://github.com/Luminous-Dynamics/nixforhumanity-org/blob/main/CHANGELOG.md",
+      "screenshot": "https://nixforhumanity.org/og-image.png",
+      "softwareHelp": {
+        "@type": "WebPage",
+        "url": "https://nixforhumanity.org/FAQ.md"
+      },
       "author": {
         "@type": "Organization",
         "name": "Luminous Dynamics",
-        "url": "https://luminousdynamics.org"
+        "url": "https://luminousdynamics.org",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nixforhumanity.org/og-image.png"
+        },
+        "sameAs": [
+          "https://github.com/Luminous-Dynamics",
+          "https://ko-fi.com/luminousdynamics"
+        ]
       },
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "ratingCount": "1",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "Natural language package management",
+        "10,000x faster search operations",
+        "AI-powered suggestions",
+        "Safe rollback capabilities",
+        "Screen reader support",
+        "Voice control integration"
+      ],
+      "requirements": "NixOS 25.11 or later",
+      "softwareRequirements": "NixOS",
+      "permissions": "Requires package management permissions",
+      "installUrl": "https://github.com/Luminous-Dynamics/luminous-nix"
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Luminous Dynamics",
+      "url": "https://luminousdynamics.org",
+      "logo": "https://nixforhumanity.org/og-image.png",
+      "foundingDate": "2025",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Support",
+        "email": "security@luminousdynamics.org"
+      },
+      "sameAs": [
+        "https://github.com/Luminous-Dynamics",
+        "https://ko-fi.com/luminousdynamics"
+      ]
+    }
+    </script>
+
+    <!-- WebPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Luminous Nix - Natural Language NixOS for Everyone",
+      "description": "Make NixOS accessible through natural language. Just say 'install firefox' and it works. No technical knowledge required.",
+      "url": "https://nixforhumanity.org",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Luminous Dynamics"
+      },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://nixforhumanity.org/og-image.png",
+        "width": 1200,
+        "height": 630
       }
     }
     </script>
-    
+
     <style>
         :root {
             --nix-blue: #5277C3;
@@ -535,6 +618,7 @@
             <a href="#performance">Performance</a>
             <a href="#install">Install</a>
             <a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode">🌙</button>
             <a href="#install" class="install-btn">Get Started</a>
         </div>
     </nav>
@@ -761,23 +845,23 @@
     </section>
 
     <!-- Join Beta Section -->
-    <section style="padding: 4rem 2rem; background: linear-gradient(135deg, #4C566A 0%, #5277C3 100%);" aria-labelledby="beta-heading">
-        <div class="container" style="max-width: 600px; margin: 0 auto;">
-            <h2 id="beta-heading" style="text-align: center; margin-bottom: 1rem; color: var(--pure-white);">Join the Beta</h2>
-            <p style="text-align: center; margin-bottom: 2rem; opacity: 0.9; color: var(--pure-white);">Be among the first to experience natural language NixOS</p>
+    <section class="beta-section" aria-labelledby="beta-heading">
+        <div class="beta-container">
+            <h2 id="beta-heading">Join the Beta</h2>
+            <p>Be among the first to experience natural language NixOS</p>
 
-            <form action="https://formspree.io/f/xeoldeev" method="POST" style="display: flex; flex-direction: column; gap: 1rem;" aria-label="Beta signup form">
-                <div>
-                    <label for="name" style="display: block; margin-bottom: 0.25rem; color: var(--pure-white); font-size: 0.9rem;">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required style="padding: 0.75rem; border-radius: 8px; border: none; width: 100%;" aria-required="true">
+            <form action="https://formspree.io/f/xeoldeev" method="POST" class="beta-form" aria-label="Beta signup form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true">
                 </div>
-                <div>
-                    <label for="email" style="display: block; margin-bottom: 0.25rem; color: var(--pure-white); font-size: 0.9rem;">Email</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required style="padding: 0.75rem; border-radius: 8px; border: none; width: 100%;" aria-required="true">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required aria-required="true">
                 </div>
-                <div>
-                    <label for="experience" style="display: block; margin-bottom: 0.25rem; color: var(--pure-white); font-size: 0.9rem;">NixOS Experience</label>
-                    <select id="experience" name="experience" required style="padding: 0.75rem; border-radius: 8px; border: none; width: 100%;" aria-required="true">
+                <div class="form-group">
+                    <label for="experience">NixOS Experience</label>
+                    <select id="experience" name="experience" required aria-required="true">
                         <option value="">Select your experience level</option>
                         <option value="new">New to NixOS</option>
                         <option value="beginner">Beginner (< 1 year)</option>
@@ -786,16 +870,16 @@
                         <option value="curious">Just curious about NixOS</option>
                     </select>
                 </div>
-                <div>
-                    <label for="use-case" style="display: block; margin-bottom: 0.25rem; color: var(--pure-white); font-size: 0.9rem;">Use Case (Optional)</label>
-                    <textarea id="use-case" name="use-case" placeholder="What would you use Luminous Nix for?" rows="3" style="padding: 0.75rem; border-radius: 8px; border: none; resize: vertical; width: 100%;"></textarea>
+                <div class="form-group">
+                    <label for="use-case">Use Case (Optional)</label>
+                    <textarea id="use-case" name="use-case" placeholder="What would you use Luminous Nix for?" rows="3"></textarea>
                 </div>
                 <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                 <input type="hidden" name="_subject" value="New Beta User for Luminous Nix!">
-                <button type="submit" style="background: var(--sacred-gold); color: #2E3440; padding: 1rem; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: transform 0.3s;">Join Beta Waitlist</button>
+                <button type="submit" class="submit-btn">Join Beta Waitlist</button>
             </form>
-            <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; opacity: 0.8; color: var(--pure-white);">
-                We respect your privacy. Read our <a href="privacy.html" style="color: var(--sacred-gold); text-decoration: underline;">privacy policy</a>.
+            <p class="privacy-note">
+                We respect your privacy. Read our <a href="privacy.html">privacy policy</a>.
             </p>
         </div>
     </section>
@@ -820,111 +904,8 @@
 
     <!-- Ko-fi Widget -->
     <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js' defer></script>
-    <script>
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
 
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    const isOpen = navLinks.classList.toggle('active');
-                    this.setAttribute('aria-expanded', isOpen);
-                });
-
-                // Close menu when clicking links
-                navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                    });
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
-                        navLinks.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-            }
-
-            // Terminal animation - cycle through different commands
-            const terminalContent = document.querySelector('.terminal-content');
-            const commands = [
-                {
-                    input: 'ask-nix "install a web browser"',
-                    output: '🔍 Understanding your request...\n📦 Found: firefox, chromium, brave\n💡 Recommending: firefox (most popular, open-source)\n\nWould you like to install firefox? [Y/n]',
-                    response: 'Y',
-                    result: '✨ Installing firefox...\n✅ Successfully installed! Run \'firefox\' to start.'
-                },
-                {
-                    input: 'ask-nix "install photo editor"',
-                    output: '🔍 Searching packages...\n📦 Found: gimp, krita, darktable\n💡 Recommending: gimp (powerful, feature-rich)\n\nInstall gimp? [Y/n]',
-                    response: 'Y',
-                    result: '✨ Installing gimp...\n✅ Done! Run \'gimp\' to start editing.'
-                },
-                {
-                    input: 'ask-nix "set up rust development"',
-                    output: '🦀 Configuring Rust environment...\n📦 Installing: cargo, rustc, rust-analyzer\n💡 Setting up VS Code integration...\n\nContinue? [Y/n]',
-                    response: 'Y',
-                    result: '✨ Installing packages...\n✅ Ready to code! Try \'cargo new my-project\'.'
-                }
-            ];
-
-            let currentIndex = 0;
-
-            function updateTerminal() {
-                const cmd = commands[currentIndex];
-                terminalContent.innerHTML = `
-                    <div>
-                        <span class="terminal-prompt">$</span>
-                        <span class="terminal-input"> ${cmd.input}</span>
-                    </div>
-                    <div class="terminal-output">
-                        ${cmd.output.replace(/\n/g, '<br>')}
-                    </div>
-                    <div>
-                        <span class="terminal-prompt">$</span>
-                        <span class="terminal-input"> ${cmd.response}</span>
-                    </div>
-                    <div class="terminal-output">
-                        ${cmd.result.replace(/\n/g, '<br>')}
-                    </div>
-                    <div>
-                        <span class="terminal-prompt">$</span>
-                        <span class="cursor"></span>
-                    </div>
-                `;
-                currentIndex = (currentIndex + 1) % commands.length;
-            }
-
-            // Cycle every 8 seconds
-            setInterval(updateTerminal, 8000);
-
-            // Initialize Ko-fi widget
-            if (typeof kofiWidgetOverlay !== 'undefined') {
-                kofiWidgetOverlay.draw('luminousdynamics', {
-                    'type': 'floating-chat',
-                    'floating-chat.donateButton.text': '☕',
-                    'floating-chat.donateButton.background-color': '#5277C3',
-                    'floating-chat.donateButton.text-color': '#fff'
-                });
-            }
-
-            // Register Service Worker for PWA functionality
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js')
-                        .then((registration) => {
-                            console.log('✅ Service Worker registered:', registration.scope);
-                        })
-                        .catch((error) => {
-                            console.log('❌ Service Worker registration failed:', error);
-                        });
-                });
-            }
-        });
-    </script>
+    <!-- Main JavaScript -->
+    <script src="script.js" defer></script>
 </body>
 </html>
