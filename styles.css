@@ -1278,6 +1278,108 @@ html {
     }
 }
 
+/* Success Stories Section */
+.success-stories-section {
+    padding: 4rem 2rem;
+    background: var(--bg-secondary);
+}
+
+.success-stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.success-story-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.success-story-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(82, 119, 195, 0.25);
+}
+
+.story-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.story-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.story-meta {
+    flex: 1;
+}
+
+.story-name {
+    font-size: 1.2rem;
+    margin: 0 0 0.25rem 0;
+    color: var(--text-primary);
+}
+
+.story-role {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    color: var(--text-secondary);
+}
+
+.story-content {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border);
+}
+
+.story-quote {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.story-quote strong {
+    color: var(--nix-light);
+    font-weight: 600;
+}
+
+.story-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--nix-light);
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    color: var(--text-secondary);
+}
+
 /* FAQ Section */
 .faq-section {
     padding: 4rem 2rem;
@@ -1434,6 +1536,19 @@ html {
 
     .faq-answer.active {
         padding: 0 1.5rem 1.25rem 1.5rem;
+    }
+
+    .success-stories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-stats {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .story-quote {
+        font-size: 1rem;
     }
 }
 

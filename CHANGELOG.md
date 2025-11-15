@@ -8,12 +8,109 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- RSS feed for blog (blog/feed.xml)
-- RSS subscribe button on blog index page
+- README updates with Phase 6-7 achievements
+- Documentation file count updated to 21 files
 
 ### Changed
-- Updated README.md with Phase 5 achievements
-- Documentation file count updated to 18 files
+- Updated recent improvements section with latest 2 phases
+
+## [4.0.0] - 2025-01-16 - Phase 7: FAQ, Tutorial Content & Enhanced User Onboarding
+
+### Added
+- **Interactive FAQ Section on Homepage**
+  - 10 comprehensive questions covering core topics
+  - Smooth accordion UI with expand/collapse animations
+  - Keyboard navigation support (Enter, Space, Escape)
+  - URL hash linking for direct question access
+  - Analytics tracking for popular questions
+  - Auto-scroll on expand for better UX
+  - Mobile-optimized responsive design
+  - Full ARIA accessibility support
+
+- **Tutorial Blog Post** (3,600+ words)
+  - Complete "Getting Started" guide (12-minute read)
+  - 8 major sections with table of contents
+  - Installation, basic operations, advanced features
+  - Troubleshooting section with 4 common issues
+  - Multi-language code examples (5 languages)
+  - Best practices and next steps
+  - Callout boxes (success, warning, info)
+  - Full SEO optimization with OpenGraph & Twitter Cards
+  - Schema.org TechArticle structured data
+
+- **Blog Infrastructure Updates**
+  - Updated blog index with categorization badges
+  - Enhanced RSS feed with tutorial entry
+  - Tutorial categorized as Tutorial/Getting Started/Beginners
+  - Updated sitemap with tutorial URL (priority 0.8)
+  - Better visual hierarchy on blog pages
+
+### Changed
+- Enhanced FAQ section CSS (+115 lines)
+- Enhanced FAQ accordion JavaScript (+70 lines)
+- Updated blog feed lastBuildDate to 2025-01-16
+- Improved blog post metadata and descriptions
+
+## [3.2.0] - 2025-01-15 - Phase 6: Content Excellence, Advanced UX & Performance Optimization
+
+### Added
+- **RSS Feed Infrastructure**
+  - Complete RSS 2.0 feed at blog/feed.xml
+  - Channel metadata and image
+  - RSS subscribe button on blog index
+  - Proper CDATA formatting for content
+
+- **Loading States & Skeleton Screens**
+  - Skeleton screens with shimmer animations
+  - Loading spinners for buttons
+  - ARIA live regions for screen readers
+  - Fade transitions for content loading
+  - Visually-hidden helper class for accessibility
+
+- **Advanced Micro-Interactions**
+  - Ripple effects on button clicks (Material Design style)
+  - Card hover animations with 3D lift
+  - Link underline animations
+  - Input focus effects with scale and glow
+  - Share button ripple effects
+  - Comparison cell hover animations
+  - Stat badge interactive effects
+
+- **Scroll Features**
+  - Scroll progress indicator at top of page
+  - Gradient bar showing reading position
+  - Back-to-top floating button (appears at 500px)
+  - Smooth scroll with header offset
+  - Parallax effects on hero sections
+
+- **Keyboard Enhancements**
+  - Ctrl+/ to toggle theme
+  - Ctrl+K for search (when implemented)
+  - Escape to close mobile menu
+  - Full keyboard shortcut system
+
+- **Service Worker v3.2.0** (Complete Rewrite)
+  - 3 separate cache types (static, dynamic, images)
+  - Cache-first strategy for static assets
+  - Network-first for dynamic content & GitHub API
+  - Stale-while-revalidate for blog content
+  - Cache size limits (50 dynamic, 30 images)
+  - 7-day cache freshness checking
+  - Automatic cleanup on activation
+  - Message handlers (SKIP_WAITING, CACHE_URLS, CLEAR_CACHE, GET_CACHE_SIZE)
+
+- **Additional Features**
+  - Tooltips on hover for badges/icons
+  - Smooth scroll for anchor links
+  - Enhanced focus states for keyboard navigation
+  - Prefers-reduced-motion support
+
+### Changed
+- Enhanced styles.css (+150 lines for UX improvements)
+- Enhanced script.js (+300 lines for interactivity)
+- Updated CHANGELOG with comprehensive version history
+- Updated sitemap with blog URLs
+- Improved button states and transitions
 
 ## [3.1.0] - 2025-01-15 - Phase 5: Advanced Features & Conversion Optimization
 
@@ -266,7 +363,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v3.2.0...v4.0.0
+[3.2.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v2.0.0...v2.1.0
