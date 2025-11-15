@@ -7,6 +7,7 @@
     <meta name="description" content="Updates, tutorials, and insights about Luminous Nix and natural language NixOS">
     <link rel="stylesheet" href="../styles.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>❄️</text></svg>">
+    <link rel="alternate" type="application/rss+xml" title="Luminous Nix Blog RSS Feed" href="/blog/feed.xml">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -25,10 +26,20 @@
     </nav>
 
     <main id="main-content" style="max-width: 800px; margin: 0 auto; padding: 4rem 2rem;">
-        <h1>Luminous Nix Blog</h1>
-        <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 3rem;">
-            Updates, tutorials, and insights about making NixOS accessible to everyone
-        </p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+            <div>
+                <h1>Luminous Nix Blog</h1>
+                <p style="font-size: 1.2rem; opacity: 0.9;">
+                    Updates, tutorials, and insights about making NixOS accessible to everyone
+                </p>
+            </div>
+            <a href="/blog/feed.xml" style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--nix-blue); color: white; text-decoration: none; border-radius: 8px; white-space: nowrap; margin-top: 0.5rem;" aria-label="Subscribe to RSS feed">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"></path>
+                </svg>
+                Subscribe via RSS
+            </a>
+        </div>
 
         <section>
             <!-- Latest Blog Posts -->

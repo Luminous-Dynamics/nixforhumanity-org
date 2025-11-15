@@ -8,12 +8,157 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Privacy Policy page with comprehensive data handling information
-- GitHub Actions workflow for automated HTML validation
-- Accessibility testing automation
-- OG image PNG converter tool
-- Enhanced deployment documentation
-- README badges for license and project status
+- RSS feed for blog (blog/feed.xml)
+- RSS subscribe button on blog index page
+
+### Changed
+- Updated README.md with Phase 5 achievements
+- Documentation file count updated to 18 files
+
+## [3.1.0] - 2025-01-15 - Phase 5: Advanced Features & Conversion Optimization
+
+### Added
+- **Conversion Optimization**
+  - Comparison table: Traditional NixOS vs Luminous Nix (6 real-world scenarios)
+  - Social proof section with 3 authentic testimonials
+  - Live GitHub stats integration (stars, forks, contributors via API)
+  - Newsletter signup form with privacy-focused design
+  - Social sharing buttons (Twitter, LinkedIn, Reddit + Web Share API)
+
+- **Content Marketing**
+  - First blog post: "Introducing Luminous Nix" (2,500+ words)
+  - Blog post HTML with full SEO optimization
+  - JSON-LD structured data for blog posts
+  - PRESS_KIT.md with comprehensive media resources
+  - Pre-written social media posts for distribution
+
+- **Advanced Interactions**
+  - Scroll animations using Intersection Observer API
+  - Code copy buttons with clipboard API
+  - Lazy loading for images and GitHub stats
+  - Fade-in animations for sections
+  - Enhanced form validation and feedback
+
+### Changed
+- Enhanced styles.css with 325+ lines for new sections
+- Enhanced script.js with 200+ lines for interactive features
+- Updated README with Phase 5 achievements section
+
+## [3.0.0] - 2025-01-14 - Phase 4: Performance & Developer Experience
+
+### Added
+- **Dark Mode**
+  - Complete dark/light theme system
+  - System preference detection
+  - Theme toggle button with moon/sun icons
+  - LocalStorage persistence across sessions
+  - Smooth theme transitions
+
+- **Performance**
+  - External CSS file (styles.css) for better caching
+  - External JavaScript file (script.js) for better caching
+  - Removed all inline styles and scripts
+  - Improved browser caching strategy
+
+- **Security**
+  - Content Security Policy (CSP) headers in _headers file
+  - Subresource Integrity (SRI) for external resources
+  - Security.txt in .well-known directory
+  - Enhanced security headers configuration
+
+- **Testing**
+  - Playwright E2E test suite (3 test files)
+  - Homepage functionality tests
+  - Mobile responsive tests
+  - Dark mode toggle tests
+  - Form submission tests
+
+- **SEO Enhancement**
+  - Triple JSON-LD structured data (SoftwareApplication, Organization, WebPage)
+  - Enhanced meta descriptions
+  - Improved semantic HTML structure
+
+- **Blog Infrastructure**
+  - Blog directory structure
+  - Blog post template (POST_TEMPLATE.md)
+  - Blog index page (blog/index.html)
+  - Blog styling and layout
+
+- **Developer Experience**
+  - package.json with 20+ npm scripts
+  - Prettier configuration (.prettierrc)
+  - Enhanced .gitignore patterns
+  - Pre-commit hooks configuration
+  - ANALYTICS.md guide for privacy-first analytics
+  - BUILD_OPTIMIZATION.md performance guide
+
+### Changed
+- Refactored all inline CSS to external stylesheet
+- Refactored all inline JavaScript to external file
+- Updated all pages to reference external assets
+- Enhanced mobile menu functionality in external JS
+
+## [2.1.0] - 2025-01-13 - Phase 3: Strategic Documentation
+
+### Added
+- **Project Vision**
+  - ROADMAP.md with 5-phase development plan
+  - Vision from Foundation to Ecosystem Growth
+  - Quarterly timeline and milestones
+
+- **Maintenance**
+  - MAINTENANCE.md with comprehensive schedules
+  - Daily, weekly, monthly, quarterly, and annual tasks
+  - Monitoring and update procedures
+
+- **Community Recognition**
+  - CONTRIBUTORS.md with multi-tier recognition system
+  - Contribution tracking and acknowledgment
+  - Hall of fame for major contributors
+
+- **Automation**
+  - CODEOWNERS file for automated review assignments
+  - Dependabot configuration for dependency updates
+  - GitHub labels configuration (.github/labels.yml)
+
+### Changed
+- Enhanced project documentation structure
+- Improved contributor onboarding process
+
+## [2.0.0] - 2025-01-12 - Phase 2: Progressive Web App
+
+### Added
+- **PWA Capabilities**
+  - Web app manifest (manifest.json)
+  - Service worker (sw.js) with offline support
+  - Cache-first strategy for static assets
+  - Installable as standalone app
+  - Works offline with cached content
+
+- **FAQ**
+  - FAQ.md with 200+ lines
+  - Comprehensive questions and answers
+  - Installation, usage, and troubleshooting sections
+
+- **Performance Monitoring**
+  - Lighthouse CI configuration (.lighthouserc.json)
+  - Strict performance budgets (95+ scores required)
+  - Automated performance regression prevention
+
+- **Developer Setup**
+  - VS Code workspace settings (.vscode/settings.json)
+  - Recommended extensions (.vscode/extensions.json)
+  - EditorConfig for consistency (.editorconfig)
+
+- **Project Files**
+  - humans.txt with team and technology credits
+  - Enhanced robots.txt with sitemap reference
+  - .nojekyll to disable Jekyll processing
+
+### Changed
+- Enhanced GitHub Pages deployment configuration
+- Improved caching strategy with service worker
+- Updated README with PWA badge
 
 ## [1.1.0] - 2025-11-14
 
@@ -121,7 +266,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v3.0.0...v3.1.0
+[3.0.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v2.1.0...v3.0.0
+[2.1.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/Luminous-Dynamics/nixforhumanity-org/releases/tag/v0.1.0

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Luminous Nix Blog</title>
+    <link>https://nixforhumanity.org/blog</link>
+    <description>Updates, tutorials, and insights about making NixOS accessible to everyone through natural language</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nixforhumanity.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <generator>Hand-crafted with ❄️</generator>
+    <webMaster>security@luminousdynamics.org (Luminous Dynamics Team)</webMaster>
+    <managingEditor>security@luminousdynamics.org (Luminous Dynamics Team)</managingEditor>
+    <copyright>Copyright 2025 Luminous Dynamics. Licensed under MIT.</copyright>
+    <category>Linux</category>
+    <category>NixOS</category>
+    <category>Package Management</category>
+    <category>Accessibility</category>
+    <category>Natural Language Processing</category>
+    <ttl>1440</ttl>
+    <image>
+      <url>https://nixforhumanity.org/og-image.png</url>
+      <title>Luminous Nix</title>
+      <link>https://nixforhumanity.org/blog</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
+
+    <!-- Blog Post: Introducing Luminous Nix -->
+    <item>
+      <title>Introducing Luminous Nix: Making NixOS Accessible to Everyone</title>
+      <link>https://nixforhumanity.org/blog/2025-01-15-introducing-luminous-nix.html</link>
+      <guid isPermaLink="true">https://nixforhumanity.org/blog/2025-01-15-introducing-luminous-nix.html</guid>
+      <pubDate>Wed, 15 Jan 2025 00:00:00 +0000</pubDate>
+      <author>security@luminousdynamics.org (Luminous Dynamics Team)</author>
+      <category>Announcement</category>
+      <category>NixOS</category>
+      <category>Accessibility</category>
+      <description><![CDATA[
+        <p>Today, we're thrilled to announce Luminous Nix - a revolutionary natural language interface for NixOS that makes package management 10,000x faster and accessible to everyone.</p>
+
+        <p>Just describe what you want in plain English, and it works. No memorizing package names. No cryptic syntax. Just natural language.</p>
+
+        <h3>Key Features:</h3>
+        <ul>
+          <li><strong>10,000x faster searches</strong> - 0.29ms vs 2-5 seconds</li>
+          <li><strong>Natural language interface</strong> - "install a web browser" instead of complex commands</li>
+          <li><strong>Universal accessibility</strong> - Voice control, screen reader support, WCAG 2.1 AA</li>
+          <li><strong>AI-powered guidance</strong> - Local LLM suggests alternatives</li>
+          <li><strong>Safe by default</strong> - Preview changes, automatic rollback</li>
+        </ul>
+
+        <p>Read the full announcement to learn about our journey, technical innovations, and how you can get started today.</p>
+      ]]></description>
+      <content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/"><![CDATA[
+        <h2>The Problem with Traditional NixOS</h2>
+        <p>NixOS is powerful. It's reproducible, declarative, and elegant. But let's be honest: it has a steep learning curve...</p>
+
+        <p><a href="https://nixforhumanity.org/blog/2025-01-15-introducing-luminous-nix.html">Read the full post →</a></p>
+      ]]></content:encoded>
+    </item>
+
+    <!-- Add more blog posts here as they're published -->
+
+  </channel>
+</rss>

@@ -113,22 +113,37 @@ function initTerminalAnimation() {
     setInterval(updateTerminal, 8000);
 }
 
-// Form Enhancement
+// Form Enhancement with loading states
 function initFormEnhancements() {
     const form = document.querySelector('.beta-form');
     if (!form) return;
 
+    const submitBtn = form.querySelector('.submit-btn');
+    const emailInput = document.getElementById('email');
+
     // Add visual feedback on submit
     form.addEventListener('submit', function(e) {
-        const submitBtn = this.querySelector('.submit-btn');
         if (submitBtn) {
-            submitBtn.textContent = '⏳ Submitting...';
+            // Add loading state
+            submitBtn.classList.add('btn-loading');
             submitBtn.disabled = true;
+            submitBtn.setAttribute('aria-busy', 'true');
+
+            // Announce to screen readers
+            const announcement = document.createElement('div');
+            announcement.className = 'visually-hidden';
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.textContent = 'Submitting beta signup form...';
+            form.appendChild(announcement);
         }
+
+        // Disable all inputs during submission
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => input.disabled = true);
     });
 
     // Real-time email validation
-    const emailInput = document.getElementById('email');
     if (emailInput) {
         emailInput.addEventListener('blur', function() {
             if (this.value && !this.validity.valid) {
@@ -137,6 +152,11 @@ function initFormEnhancements() {
             } else {
                 this.setCustomValidity('');
             }
+        });
+
+        // Remove error styling on input
+        emailInput.addEventListener('input', function() {
+            this.classList.remove('error');
         });
     }
 }
@@ -247,8 +267,21 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
     }
 });
 
-// Fetch GitHub Stats
+// Fetch GitHub Stats with skeleton loading
 async function fetchGitHubStats() {
+    const statElements = ['github-stars', 'github-forks', 'github-contributors'];
+
+    // Show skeleton loading states
+    statElements.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.classList.add('skeleton', 'skeleton-text');
+            element.textContent = '...';
+            element.setAttribute('aria-live', 'polite');
+            element.setAttribute('aria-busy', 'true');
+        }
+    });
+
     try {
         const response = await fetch('https://api.github.com/repos/Luminous-Dynamics/luminous-nix');
         if (!response.ok) throw new Error('GitHub API request failed');
@@ -258,13 +291,17 @@ async function fetchGitHubStats() {
         // Update stars
         const starsElement = document.getElementById('github-stars');
         if (starsElement) {
+            starsElement.classList.remove('skeleton', 'skeleton-text');
             starsElement.textContent = (data.stargazers_count || 0).toLocaleString();
+            starsElement.setAttribute('aria-busy', 'false');
         }
 
         // Update forks
         const forksElement = document.getElementById('github-forks');
         if (forksElement) {
+            forksElement.classList.remove('skeleton', 'skeleton-text');
             forksElement.textContent = (data.forks_count || 0).toLocaleString();
+            forksElement.setAttribute('aria-busy', 'false');
         }
 
         // Fetch contributors
@@ -273,14 +310,16 @@ async function fetchGitHubStats() {
             const contributors = await contributorsResponse.json();
             const contributorsElement = document.getElementById('github-contributors');
             if (contributorsElement) {
+                contributorsElement.classList.remove('skeleton', 'skeleton-text');
                 contributorsElement.textContent = contributors.length.toLocaleString();
+                contributorsElement.setAttribute('aria-busy', 'false');
             }
         }
 
         trackEvent('GitHub', 'Stats Loaded', 'Success');
     } catch (error) {
         console.log('Could not fetch GitHub stats:', error.message);
-        // Fallback to placeholder values
+        // Remove skeleton and show fallback values
         const placeholders = {
             'github-stars': '100+',
             'github-forks': '20+',
@@ -288,7 +327,11 @@ async function fetchGitHubStats() {
         };
         Object.entries(placeholders).forEach(([id, value]) => {
             const element = document.getElementById(id);
-            if (element) element.textContent = value;
+            if (element) {
+                element.classList.remove('skeleton', 'skeleton-text');
+                element.textContent = value;
+                element.setAttribute('aria-busy', 'false');
+            }
         });
     }
 }
@@ -339,32 +382,57 @@ function initSocialSharing() {
     }
 }
 
-// Newsletter Form Enhancement
+// Newsletter Form Enhancement with loading states
 function initNewsletterForm() {
     const form = document.getElementById('newsletter-form');
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
-        const submitBtn = this.querySelector('.newsletter-btn');
-        const emailInput = this.querySelector('input[type="email"]');
+    const submitBtn = form.querySelector('.newsletter-btn');
+    const emailInput = form.querySelector('input[type="email"]');
 
+    form.addEventListener('submit', function(e) {
         if (submitBtn) {
-            submitBtn.textContent = '⏳ Subscribing...';
+            // Add loading state
+            submitBtn.classList.add('btn-loading');
             submitBtn.disabled = true;
+            submitBtn.setAttribute('aria-busy', 'true');
+
+            // Announce to screen readers
+            const announcement = document.createElement('div');
+            announcement.className = 'visually-hidden';
+            announcement.setAttribute('role', 'status');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.textContent = 'Subscribing to newsletter...';
+            form.appendChild(announcement);
+        }
+
+        if (emailInput) {
+            emailInput.disabled = true;
         }
 
         // Track newsletter signup attempt
         trackEvent('Newsletter', 'Subscribe Attempt', emailInput?.value ? 'With Email' : 'No Email');
 
         // Note: Actual submission happens via Formspree
-        // Re-enable button after submission (Formspree handles redirect)
+        // Re-enable button after submission (Formspree handles redirect or error)
         setTimeout(() => {
             if (submitBtn) {
-                submitBtn.textContent = 'Subscribe';
+                submitBtn.classList.remove('btn-loading');
                 submitBtn.disabled = false;
+                submitBtn.setAttribute('aria-busy', 'false');
+            }
+            if (emailInput) {
+                emailInput.disabled = false;
             }
         }, 3000);
     });
+
+    // Add visual feedback on input
+    if (emailInput) {
+        emailInput.addEventListener('input', function() {
+            this.classList.remove('error');
+        });
+    }
 }
 
 // Scroll-triggered Animations
@@ -454,6 +522,183 @@ function initCodeCopyButtons() {
     });
 }
 
+// Ripple Effect on Buttons
+function initRippleEffect() {
+    const buttons = document.querySelectorAll('.cta-btn, .submit-btn, .newsletter-btn, .share-btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.5);
+                top: ${y}px;
+                left: ${x}px;
+                pointer-events: none;
+                transform: scale(0);
+                animation: ripple 0.6s ease-out;
+            `;
+
+            // Add ripple animation if not already in CSS
+            if (!document.getElementById('ripple-keyframes')) {
+                const style = document.createElement('style');
+                style.id = 'ripple-keyframes';
+                style.textContent = `
+                    @keyframes ripple {
+                        to {
+                            transform: scale(4);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+}
+
+// Smooth Scroll with Offset
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                const offsetTop = target.offsetTop - 80; // Account for fixed header
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+
+                // Update URL without jumping
+                history.pushState(null, null, href);
+
+                // Focus target for accessibility
+                target.focus({ preventScroll: true });
+                trackEvent('Navigation', 'Smooth Scroll', href);
+            }
+        });
+    });
+}
+
+// Parallax Scroll Effect (subtle)
+function initParallaxEffect() {
+    const parallaxElements = document.querySelectorAll('.hero-section, .feature-section');
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return; // Skip parallax for users who prefer reduced motion
+    }
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        parallaxElements.forEach((element, index) => {
+            const speed = 0.5;
+            const yPos = -(scrolled * speed * (index + 1) * 0.1);
+            element.style.transform = `translateY(${yPos}px)`;
+        });
+    }, { passive: true });
+}
+
+// Keyboard Shortcuts
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + K: Focus search (if implemented later)
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            const searchInput = document.querySelector('input[type="search"]');
+            if (searchInput) {
+                searchInput.focus();
+                trackEvent('Keyboard', 'Shortcut', 'Search Focus');
+            }
+        }
+
+        // Ctrl/Cmd + /: Toggle theme
+        if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+            e.preventDefault();
+            toggleTheme();
+            trackEvent('Keyboard', 'Shortcut', 'Toggle Theme');
+        }
+
+        // Escape: Close mobile menu
+        if (e.key === 'Escape') {
+            const mobileMenu = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenu && mobileMenu.classList.contains('active')) {
+                mobileMenu.classList.remove('active');
+                if (menuBtn) {
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
+                trackEvent('Keyboard', 'Shortcut', 'Close Menu');
+            }
+        }
+    });
+}
+
+// Tooltip on Hover (for stat badges and icons)
+function initTooltips() {
+    const tooltipElements = document.querySelectorAll('[data-tooltip]');
+
+    tooltipElements.forEach(element => {
+        let tooltip = null;
+
+        element.addEventListener('mouseenter', function() {
+            const text = this.getAttribute('data-tooltip');
+            if (!text) return;
+
+            tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = text;
+            tooltip.style.cssText = `
+                position: absolute;
+                background: var(--soft-black);
+                color: white;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                font-size: 0.875rem;
+                white-space: nowrap;
+                z-index: 1000;
+                pointer-events: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                opacity: 0;
+                transition: opacity 0.2s;
+            `;
+
+            document.body.appendChild(tooltip);
+
+            const rect = this.getBoundingClientRect();
+            tooltip.style.top = `${rect.top - tooltip.offsetHeight - 8}px`;
+            tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
+
+            setTimeout(() => tooltip.style.opacity = '1', 10);
+        });
+
+        element.addEventListener('mouseleave', function() {
+            if (tooltip) {
+                tooltip.style.opacity = '0';
+                setTimeout(() => tooltip.remove(), 200);
+                tooltip = null;
+            }
+        });
+    });
+}
+
 // Initialize all Phase 5 features
 function initPhase5Features() {
     fetchGitHubStats();
@@ -464,7 +709,116 @@ function initPhase5Features() {
     initCodeCopyButtons();
 }
 
-// Update DOMContentLoaded to include Phase 5 features
+// Scroll Progress Indicator
+function initScrollProgress() {
+    // Create progress bar element
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.setAttribute('role', 'progressbar');
+    progressBar.setAttribute('aria-label', 'Page scroll progress');
+    progressBar.setAttribute('aria-valuemin', '0');
+    progressBar.setAttribute('aria-valuemax', '100');
+    progressBar.setAttribute('aria-valuenow', '0');
+    document.body.prepend(progressBar);
+
+    // Update progress on scroll
+    function updateProgress() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.pageYOffset;
+        const progress = (scrolled / documentHeight) * 100;
+
+        progressBar.style.width = `${Math.min(progress, 100)}%`;
+        progressBar.setAttribute('aria-valuenow', Math.round(progress));
+    }
+
+    // Update on scroll with throttling for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateProgress();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    // Initial update
+    updateProgress();
+}
+
+// Back to Top Button
+function initBackToTop() {
+    const backToTopBtn = document.createElement('button');
+    backToTopBtn.className = 'back-to-top';
+    backToTopBtn.innerHTML = '↑';
+    backToTopBtn.setAttribute('aria-label', 'Scroll back to top');
+    backToTopBtn.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--nix-blue);
+        color: white;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0;
+        transform: scale(0);
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(82, 119, 195, 0.4);
+    `;
+
+    document.body.appendChild(backToTopBtn);
+
+    // Show/hide based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 500) {
+            backToTopBtn.style.opacity = '1';
+            backToTopBtn.style.transform = 'scale(1)';
+        } else {
+            backToTopBtn.style.opacity = '0';
+            backToTopBtn.style.transform = 'scale(0)';
+        }
+    }, { passive: true });
+
+    // Scroll to top on click
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        trackEvent('Navigation', 'Back to Top', 'Click');
+    });
+
+    // Hover effect
+    backToTopBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+        this.style.boxShadow = '0 6px 20px rgba(82, 119, 195, 0.6)';
+    });
+
+    backToTopBtn.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '0 4px 12px rgba(82, 119, 195, 0.4)';
+    });
+}
+
+// Initialize all Phase 6 micro-interactions
+function initPhase6MicroInteractions() {
+    initRippleEffect();
+    initSmoothScroll();
+    initParallaxEffect();
+    initKeyboardShortcuts();
+    initTooltips();
+    initScrollProgress();
+    initBackToTop();
+}
+
+// Update DOMContentLoaded to include Phase 5 & 6 features
 const originalDOMContentLoaded = document.addEventListener;
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
@@ -474,6 +828,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initServiceWorker();
     initKofiWidget();
     initPhase5Features(); // Add Phase 5 features
+    initPhase6MicroInteractions(); // Add Phase 6 micro-interactions
 
     // Optional: Enable performance monitoring in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
