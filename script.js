@@ -807,6 +807,70 @@ function initBackToTop() {
     });
 }
 
+// FAQ Accordion (Phase 7)
+function initFAQAccordion() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            const answer = this.nextElementSibling;
+
+            // Close all other FAQs (optional - remove if you want multiple open)
+            faqQuestions.forEach(q => {
+                if (q !== this) {
+                    q.setAttribute('aria-expanded', 'false');
+                    q.nextElementSibling.classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            this.setAttribute('aria-expanded', !isExpanded);
+            answer.classList.toggle('active');
+
+            // Track FAQ interactions
+            if (!isExpanded) {
+                const questionText = this.querySelector('span').textContent;
+                trackEvent('FAQ', 'Open', questionText);
+            }
+
+            // Smooth scroll to question if it's below viewport
+            if (!isExpanded) {
+                setTimeout(() => {
+                    const rect = this.getBoundingClientRect();
+                    if (rect.top < 100) {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
+            }
+        });
+
+        // Keyboard navigation
+        question.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+
+    // Allow URL hash to open specific FAQ
+    if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const targetQuestion = Array.from(faqQuestions).find(q => {
+            const text = q.querySelector('span').textContent.toLowerCase();
+            return text.includes(hash.toLowerCase().replace(/-/g, ' '));
+        });
+
+        if (targetQuestion) {
+            setTimeout(() => {
+                targetQuestion.click();
+                targetQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        }
+    }
+}
+
 // Initialize all Phase 6 micro-interactions
 function initPhase6MicroInteractions() {
     initRippleEffect();
@@ -818,7 +882,12 @@ function initPhase6MicroInteractions() {
     initBackToTop();
 }
 
-// Update DOMContentLoaded to include Phase 5 & 6 features
+// Initialize all Phase 7 features
+function initPhase7Features() {
+    initFAQAccordion();
+}
+
+// Update DOMContentLoaded to include Phase 5, 6 & 7 features
 const originalDOMContentLoaded = document.addEventListener;
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
@@ -829,6 +898,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initKofiWidget();
     initPhase5Features(); // Add Phase 5 features
     initPhase6MicroInteractions(); // Add Phase 6 micro-interactions
+    initPhase7Features(); // Add Phase 7 features
 
     // Optional: Enable performance monitoring in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {

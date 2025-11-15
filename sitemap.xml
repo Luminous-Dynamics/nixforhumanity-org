@@ -19,6 +19,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html</loc>
+    <lastmod>2025-01-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://nixforhumanity.org/blog/2025-01-15-introducing-luminous-nix.html</loc>
     <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -26,7 +32,7 @@
   </url>
   <url>
     <loc>https://nixforhumanity.org/blog/feed.xml</loc>
-    <lastmod>2025-01-15</lastmod>
+    <lastmod>2025-01-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

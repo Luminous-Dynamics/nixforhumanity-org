@@ -5,7 +5,7 @@
     <link>https://nixforhumanity.org/blog</link>
     <description>Updates, tutorials, and insights about making NixOS accessible to everyone through natural language</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Jan 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jan 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nixforhumanity.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <generator>Hand-crafted with ❄️</generator>
     <webMaster>security@luminousdynamics.org (Luminous Dynamics Team)</webMaster>
@@ -24,6 +24,39 @@
       <width>144</width>
       <height>144</height>
     </image>
+
+    <!-- Blog Post: Getting Started Guide -->
+    <item>
+      <title>Getting Started with Luminous Nix: A Complete Beginner's Guide</title>
+      <link>https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html</link>
+      <guid isPermaLink="true">https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html</guid>
+      <pubDate>Thu, 16 Jan 2025 00:00:00 +0000</pubDate>
+      <author>security@luminousdynamics.org (Luminous Dynamics Team)</author>
+      <category>Tutorial</category>
+      <category>Getting Started</category>
+      <category>Beginners</category>
+      <category>NixOS</category>
+      <description><![CDATA[
+        <p>Learn how to install and use Luminous Nix in just 15 minutes! This comprehensive beginner's guide covers everything you need to get started with natural language NixOS package management.</p>
+
+        <h3>What You'll Learn:</h3>
+        <ul>
+          <li><strong>Installation</strong> - One simple command to get started</li>
+          <li><strong>Basic Operations</strong> - Installing, searching, removing, and updating packages</li>
+          <li><strong>Advanced Features</strong> - Voice control, multi-language support, batch operations</li>
+          <li><strong>Troubleshooting</strong> - Common issues and how to fix them</li>
+          <li><strong>Best Practices</strong> - Tips for getting the most out of Luminous Nix</li>
+        </ul>
+
+        <p>Perfect for complete beginners! No prior NixOS knowledge required. Start using Luminous Nix in under 15 minutes.</p>
+      ]]></description>
+      <content:encoded xmlns:content="http://purl.org/rss/1.0/modules/content/"><![CDATA[
+        <h2>Welcome to Luminous Nix!</h2>
+        <p>If you're reading this, you're about to embark on a journey that will completely transform how you interact with NixOS...</p>
+
+        <p><a href="https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html">Read the full tutorial →</a></p>
+      ]]></content:encoded>
+    </item>
 
     <!-- Blog Post: Introducing Luminous Nix -->
     <item>

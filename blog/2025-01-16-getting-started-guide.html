@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with Luminous Nix: A Complete Beginner's Guide | Luminous Nix Blog</title>
+    <meta name="description" content="Learn how to install and use Luminous Nix in 15 minutes. This comprehensive tutorial covers installation, basic commands, troubleshooting, and advanced features.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html">
+    <meta property="og:title" content="Getting Started with Luminous Nix: A Complete Beginner's Guide">
+    <meta property="og:description" content="Learn how to install and use Luminous Nix in 15 minutes. From installation to advanced features.">
+    <meta property="og:image" content="https://nixforhumanity.org/og-image.svg">
+    <meta property="article:published_time" content="2025-01-16T00:00:00+00:00">
+    <meta property="article:author" content="Luminous Dynamics Team">
+    <meta property="article:section" content="Tutorial">
+    <meta property="article:tag" content="tutorial">
+    <meta property="article:tag" content="getting started">
+    <meta property="article:tag" content="beginners">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html">
+    <meta property="twitter:title" content="Getting Started with Luminous Nix: A Complete Beginner's Guide">
+    <meta property="twitter:description" content="Learn how to install and use Luminous Nix in 15 minutes">
+    <meta property="twitter:image" content="https://nixforhumanity.org/og-image.svg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/styles.css">
+
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/og-image.svg">
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#1a202c">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Getting Started with Luminous Nix: A Complete Beginner's Guide",
+        "description": "Learn how to install and use Luminous Nix in 15 minutes. This comprehensive tutorial covers installation, basic commands, troubleshooting, and advanced features.",
+        "author": {
+            "@type": "Organization",
+            "name": "Luminous Dynamics",
+            "url": "https://luminousdynamics.org"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Luminous Dynamics",
+            "url": "https://luminousdynamics.org"
+        },
+        "datePublished": "2025-01-16",
+        "dateModified": "2025-01-16",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://nixforhumanity.org/blog/2025-01-16-getting-started-guide.html"
+        },
+        "keywords": "NixOS, Luminous Nix, tutorial, getting started, beginner guide, natural language, package management",
+        "articleSection": "Tutorial",
+        "proficiencyLevel": "Beginner",
+        "dependencies": "NixOS",
+        "softwareVersion": "1.0.0"
+    }
+    </script>
+
+    <style>
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .blog-header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--card-border);
+            padding-bottom: 2rem;
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--nix-light);
+            line-height: 1.2;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .blog-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .blog-content h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--nix-light);
+        }
+
+        .blog-content h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-content code {
+            background: rgba(82, 119, 195, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--nix-light);
+        }
+
+        .blog-content pre {
+            background: var(--soft-black);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--card-border);
+        }
+
+        .blog-content pre code {
+            background: transparent;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        .callout {
+            background: rgba(82, 119, 195, 0.1);
+            border-left: 4px solid var(--nix-blue);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .callout.success {
+            background: rgba(72, 187, 120, 0.1);
+            border-left-color: #48bb78;
+        }
+
+        .callout.warning {
+            background: rgba(237, 137, 54, 0.1);
+            border-left-color: #ed8936;
+        }
+
+        .blog-toc {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-toc h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .blog-toc ul {
+            list-style: none;
+            padding-left: 1rem;
+            margin: 0;
+        }
+
+        .blog-toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .blog-toc a:hover {
+            color: var(--nix-light);
+        }
+
+        .reading-time {
+            background: rgba(82, 119, 195, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .blog-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .blog-content h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Luminous Nix</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/blog/" aria-current="page">Blog</a>
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+    </nav>
+
+    <main>
+        <article class="blog-post">
+            <header class="blog-header">
+                <h1 class="blog-title">Getting Started with Luminous Nix: A Complete Beginner's Guide</h1>
+                <div class="blog-meta">
+                    <span class="blog-meta-item">
+                        📅 January 16, 2025
+                    </span>
+                    <span class="blog-meta-item">
+                        ✍️ Luminous Dynamics Team
+                    </span>
+                    <span class="blog-meta-item reading-time">
+                        ⏱️ 12 min read
+                    </span>
+                    <span class="blog-meta-item">
+                        🏷️ Tutorial
+                    </span>
+                </div>
+            </header>
+
+            <div class="blog-content">
+                <p><strong>Welcome to Luminous Nix!</strong> If you're reading this, you're about to embark on a journey that will completely transform how you interact with NixOS. Whether you're a complete beginner who's never touched a command line, or an experienced developer looking for a faster workflow, this guide will get you up and running in just 15 minutes.</p>
+
+                <div class="callout">
+                    <strong>What You'll Learn:</strong><br>
+                    By the end of this tutorial, you'll know how to install Luminous Nix, perform basic package operations, troubleshoot common issues, and leverage advanced features like voice control and multi-language support.
+                </div>
+
+                <div class="blog-toc">
+                    <h3>Table of Contents</h3>
+                    <ul>
+                        <li><a href="#prerequisites">1. Prerequisites</a></li>
+                        <li><a href="#installation">2. Installation</a></li>
+                        <li><a href="#first-command">3. Your First Command</a></li>
+                        <li><a href="#basic-operations">4. Basic Operations</a></li>
+                        <li><a href="#advanced-features">5. Advanced Features</a></li>
+                        <li><a href="#troubleshooting">6. Troubleshooting</a></li>
+                        <li><a href="#best-practices">7. Best Practices</a></li>
+                        <li><a href="#next-steps">8. Next Steps</a></li>
+                    </ul>
+                </div>
+
+                <h2 id="prerequisites">1. Prerequisites</h2>
+
+                <p>Before we begin, make sure you have:</p>
+
+                <ul>
+                    <li><strong>NixOS installed</strong> - Luminous Nix works on top of NixOS. If you don't have it yet, follow the <a href="https://nixos.org/download.html" target="_blank" rel="noopener noreferrer">official installation guide</a>.</li>
+                    <li><strong>Basic terminal access</strong> - Don't worry, you only need to know how to open a terminal. Luminous Nix handles the rest!</li>
+                    <li><strong>Internet connection</strong> - For downloading packages and the initial setup.</li>
+                    <li><strong>5-10 minutes</strong> - That's all it takes!</li>
+                </ul>
+
+                <div class="callout success">
+                    <strong>Good News:</strong> You do NOT need to know NixOS commands, read documentation, or understand package management. Luminous Nix is designed for people who don't know any of that stuff!
+                </div>
+
+                <h2 id="installation">2. Installation</h2>
+
+                <p>Installing Luminous Nix is incredibly simple. Open your terminal and run this single command:</p>
+
+                <pre><code>nix-env -iA nixpkgs.luminous-nix</code></pre>
+
+                <p>That's it! The installation typically takes 2-3 minutes depending on your internet speed. You'll see something like this:</p>
+
+                <pre><code>installing 'luminous-nix-1.0.0'
+building '/nix/store/...'
+these paths will be fetched (5.2 MB):
+  /nix/store/...-luminous-nix-1.0.0
+copying path '/nix/store/...'
+✅ Installation complete!</code></pre>
+
+                <h3>Verify Installation</h3>
+
+                <p>To confirm everything is working, run:</p>
+
+                <pre><code>ask-nix --version</code></pre>
+
+                <p>You should see:</p>
+
+                <pre><code>Luminous Nix v1.0.0
+Natural Language Interface for NixOS
+Ready to help! 🌟</code></pre>
+
+                <div class="callout warning">
+                    <strong>Installation Failed?</strong> If you see any errors, skip to the <a href="#troubleshooting">Troubleshooting section</a> below. Common issues are easily resolved!
+                </div>
+
+                <h2 id="first-command">3. Your First Command</h2>
+
+                <p>Now for the fun part! Let's ask Luminous Nix to help us get started. Type:</p>
+
+                <pre><code>ask-nix "help me get started"</code></pre>
+
+                <p>You'll see a friendly welcome message with personalized suggestions. Luminous Nix will analyze your system and recommend the first steps based on your setup.</p>
+
+                <h3>Understanding the Response</h3>
+
+                <p>Luminous Nix responses always include:</p>
+
+                <ul>
+                    <li><strong>What it understood</strong> - A summary of your request</li>
+                    <li><strong>What it's doing</strong> - The actual operation being performed</li>
+                    <li><strong>Results</strong> - What happened and what you can do next</li>
+                    <li><strong>Suggestions</strong> - Related commands or next steps</li>
+                </ul>
+
+                <h2 id="basic-operations">4. Basic Operations</h2>
+
+                <p>Let's walk through the most common tasks you'll perform with Luminous Nix.</p>
+
+                <h3>Installing a Package</h3>
+
+                <p>Want to install Firefox? Just say so:</p>
+
+                <pre><code>ask-nix "install firefox"</code></pre>
+
+                <p>Or be even more casual:</p>
+
+                <pre><code>ask-nix "I need a web browser"
+ask-nix "get me firefox please"
+ask-nix "download firefox for me"</code></pre>
+
+                <p>All of these work! Luminous Nix understands intent, not just keywords.</p>
+
+                <h3>Searching for Packages</h3>
+
+                <p>Not sure what's available? Ask:</p>
+
+                <pre><code>ask-nix "find a video editor"
+ask-nix "what music players are available?"
+ask-nix "show me development tools"</code></pre>
+
+                <p>You'll get a curated list with descriptions, not just package names.</p>
+
+                <h3>Removing Packages</h3>
+
+                <pre><code>ask-nix "remove firefox"
+ask-nix "uninstall that video editor"
+ask-nix "I don't need gimp anymore"</code></pre>
+
+                <h3>Updating Packages</h3>
+
+                <pre><code>ask-nix "update everything"
+ask-nix "upgrade my packages"
+ask-nix "check for updates"</code></pre>
+
+                <h3>Rolling Back Changes</h3>
+
+                <p>Made a mistake? No problem:</p>
+
+                <pre><code>ask-nix "undo that"
+ask-nix "go back to before"
+ask-nix "rollback to yesterday"</code></pre>
+
+                <div class="callout">
+                    <strong>Pro Tip:</strong> You can be as vague or specific as you want. "install a text editor" works just as well as "install neovim version 0.9.0".
+                </div>
+
+                <h2 id="advanced-features">5. Advanced Features</h2>
+
+                <h3>Voice Control</h3>
+
+                <p>For users with accessibility needs or those who prefer speaking:</p>
+
+                <pre><code>ask-nix --voice</code></pre>
+
+                <p>This activates voice mode. Just speak your commands naturally! Say "exit" to return to text mode.</p>
+
+                <h3>Multi-Language Support</h3>
+
+                <p>Luminous Nix understands multiple languages. Try these:</p>
+
+                <pre><code>ask-nix "instala firefox"          # Spanish
+ask-nix "installer firefox"       # French
+ask-nix "firefoxをインストール"     # Japanese
+ask-nix "安装firefox"              # Chinese</code></pre>
+
+                <h3>Batch Operations</h3>
+
+                <p>Need to do multiple things at once?</p>
+
+                <pre><code>ask-nix "install vscode, docker, and git, then update everything"</code></pre>
+
+                <h3>Asking for Explanations</h3>
+
+                <p>Want to learn what's happening under the hood?</p>
+
+                <pre><code>ask-nix "explain what you just did"
+ask-nix "show me the actual commands"
+ask-nix "teach me about nix channels"</code></pre>
+
+                <h2 id="troubleshooting">6. Troubleshooting</h2>
+
+                <h3>Problem: "Command not found"</h3>
+
+                <p><strong>Solution:</strong> The installation path might not be in your PATH. Run:</p>
+
+                <pre><code>export PATH=$PATH:~/.nix-profile/bin
+# Add this to your ~/.bashrc or ~/.zshrc to make it permanent</code></pre>
+
+                <h3>Problem: "Permission denied"</h3>
+
+                <p><strong>Solution:</strong> Don't use sudo with Nix commands. Run as your regular user:</p>
+
+                <pre><code>ask-nix "help"  # ✅ Correct
+sudo ask-nix "help"  # ❌ Don't do this</code></pre>
+
+                <h3>Problem: "Network error"</h3>
+
+                <p><strong>Solution:</strong> Check your internet connection and try updating your channels:</p>
+
+                <pre><code>nix-channel --update</code></pre>
+
+                <h3>Problem: Luminous Nix seems confused</h3>
+
+                <p><strong>Solution:</strong> Try being more specific or rephrasing:</p>
+
+                <pre><code>Instead of: "get that thing"
+Try: "install the package we just talked about"
+Or: "install firefox"</code></pre>
+
+                <h2 id="best-practices">7. Best Practices</h2>
+
+                <h3>1. Be Conversational</h3>
+
+                <p>Don't overthink it. Talk to Luminous Nix like you'd talk to a helpful colleague:</p>
+
+                <ul>
+                    <li>✅ "Can you install docker for me?"</li>
+                    <li>✅ "I need a PDF reader"</li>
+                    <li>❌ Don't worry about being too formal or using exact syntax</li>
+                </ul>
+
+                <h3>2. Ask for Help</h3>
+
+                <p>If you're not sure how to do something:</p>
+
+                <pre><code>ask-nix "how do I...?"
+ask-nix "what can you do?"
+ask-nix "help with package management"</code></pre>
+
+                <h3>3. Use Context</h3>
+
+                <p>Luminous Nix remembers your recent conversation:</p>
+
+                <pre><code>ask-nix "install vscode"
+ask-nix "also install the python extension for that"
+ask-nix "and the docker extension too"</code></pre>
+
+                <h3>4. Review Before Major Changes</h3>
+
+                <p>For big operations, use the <code>--dry-run</code> flag:</p>
+
+                <pre><code>ask-nix "update everything" --dry-run</code></pre>
+
+                <p>This shows what would happen without actually doing it.</p>
+
+                <h2 id="next-steps">8. Next Steps</h2>
+
+                <p>Congratulations! You're now ready to use Luminous Nix. Here's what to explore next:</p>
+
+                <h3>Customize Your Experience</h3>
+
+                <pre><code>ask-nix "configure preferences"</code></pre>
+
+                <p>This opens an interactive configuration wizard where you can:</p>
+
+                <ul>
+                    <li>Set your preferred language</li>
+                    <li>Choose verbosity levels (brief, normal, detailed)</li>
+                    <li>Enable/disable auto-updates</li>
+                    <li>Configure accessibility options</li>
+                </ul>
+
+                <h3>Explore Advanced Topics</h3>
+
+                <ul>
+                    <li><strong>Development Environments:</strong> "ask-nix 'create a python dev environment'"</li>
+                    <li><strong>System Configuration:</strong> "ask-nix 'help me configure my system'"</li>
+                    <li><strong>Shell Integration:</strong> "ask-nix 'set up shell completion'"</li>
+                </ul>
+
+                <h3>Join the Community</h3>
+
+                <ul>
+                    <li><a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer">GitHub Repository</a> - Report issues, contribute code</li>
+                    <li><a href="https://github.com/Luminous-Dynamics/luminous-nix/discussions" target="_blank" rel="noopener noreferrer">Community Forum</a> - Ask questions, share tips</li>
+                    <li><a href="/">Official Website</a> - Latest updates and documentation</li>
+                </ul>
+
+                <h3>Share Your Experience</h3>
+
+                <p>Help others discover Luminous Nix by sharing your experience on social media. We'd love to hear your success stories!</p>
+
+                <div class="callout success">
+                    <strong>You Did It!</strong><br>
+                    You've completed the Getting Started guide. You now know everything you need to use Luminous Nix effectively. Remember: there's no such thing as a dumb question. If you're unsure, just ask Luminous Nix - it's designed to help!
+                </div>
+
+                <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--card-border);">
+
+                <p style="text-align: center; color: var(--text-secondary); font-style: italic;">
+                    Have questions or feedback about this tutorial? <a href="https://github.com/Luminous-Dynamics/luminous-nix/issues">Open an issue on GitHub</a> or <a href="/#beta-signup">join our beta program</a> to get direct support.
+                </p>
+            </div>
+        </article>
+
+        <div style="max-width: 800px; margin: 3rem auto; padding: 0 2rem;">
+            <a href="/blog/" style="color: var(--nix-light); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                ← Back to Blog
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://luminousdynamics.org" target="_blank" rel="noopener noreferrer">Luminous Dynamics</a>
+            <a href="/privacy.html">Privacy</a>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
+            Made with ❄️ by Luminous Dynamics
+        </p>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
