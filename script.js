@@ -887,7 +887,302 @@ function initPhase7Features() {
     initFAQAccordion();
 }
 
-// Update DOMContentLoaded to include Phase 5, 6 & 7 features
+// ============================================
+// Phase 9: Community Statistics Counter Animation
+// ============================================
+
+/**
+ * Animates a number from start to end value over a duration
+ * @param {HTMLElement} element - The element to animate
+ * @param {number} start - Starting value
+ * @param {number} end - Ending value
+ * @param {number} duration - Animation duration in milliseconds
+ */
+function animateCounter(element, start, end, duration) {
+    const startTime = performance.now();
+    const isPercentage = element.textContent.includes('%');
+    const hasComma = end >= 1000;
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Easing function (easeOutCubic for smooth deceleration)
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+        const current = Math.floor(start + (end - start) * easeProgress);
+
+        // Format the number
+        let formattedValue = current.toString();
+        if (hasComma) {
+            formattedValue = current.toLocaleString('en-US');
+        }
+        if (isPercentage) {
+            formattedValue = current + '%';
+        }
+
+        element.textContent = formattedValue;
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            // Ensure final value is exact
+            let finalValue = end.toString();
+            if (hasComma) {
+                finalValue = end.toLocaleString('en-US');
+            }
+            if (isPercentage) {
+                finalValue = end + '%';
+            }
+            element.textContent = finalValue;
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+
+/**
+ * Initialize Community Statistics section with Intersection Observer
+ * Triggers counter animations when the section comes into view
+ */
+function initCommunityStats() {
+    const statCards = document.querySelectorAll('.community-stat-card');
+
+    if (statCards.length === 0) return;
+
+    // Track which cards have been animated
+    const animatedCards = new Set();
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animatedCards.has(entry.target)) {
+                const valueElement = entry.target.querySelector('.stat-value');
+
+                if (valueElement) {
+                    const targetText = valueElement.getAttribute('data-target');
+                    let target;
+
+                    // Handle percentage values
+                    if (targetText.includes('%')) {
+                        target = parseInt(targetText.replace('%', ''));
+                        valueElement.textContent = '0%';
+                    } else {
+                        target = parseInt(targetText.replace(/,/g, ''));
+                        valueElement.textContent = '0';
+                    }
+
+                    // Start animation with 2-second duration
+                    animateCounter(valueElement, 0, target, 2000);
+
+                    // Mark as animated
+                    animatedCards.add(entry.target);
+                }
+
+                // Don't unobserve - allow re-animation if user scrolls away and back
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3, // Trigger when 30% of the card is visible
+        rootMargin: '0px 0px -50px 0px' // Start slightly before it enters viewport
+    });
+
+    // Observe all stat cards
+    statCards.forEach(card => observer.observe(card));
+
+    // Track when community stats section is viewed
+    trackEvent('Section', 'View', 'Community Statistics');
+}
+
+/**
+ * Interactive Terminal Demo Data
+ * Each demo shows a realistic Luminous Nix interaction
+ */
+const terminalDemos = {
+    browser: {
+        command: 'ask-nix "install a web browser"',
+        steps: [
+            { type: 'output', content: '🔍 Understanding your request...', delay: 400 },
+            { type: 'output', content: '📦 Found: firefox, chromium, brave, vivaldi', delay: 600 },
+            { type: 'output', content: '💡 Recommending: <span class="demo-output info">firefox</span> (most popular, open-source, privacy-focused)', delay: 500 },
+            { type: 'output', content: '\nWould you like to install firefox? [Y/n]', delay: 300 },
+            { type: 'input', content: 'Y', delay: 800 },
+            { type: 'output', content: '✨ Installing firefox...', delay: 500, class: 'success' },
+            { type: 'output', content: '✅ Successfully installed! Run \'firefox\' to start.', delay: 700, class: 'success' }
+        ]
+    },
+    photo: {
+        command: 'ask-nix "install photo editing software"',
+        steps: [
+            { type: 'output', content: '🔍 Searching for photo editing tools...', delay: 400 },
+            { type: 'output', content: '📦 Found: gimp, krita, darktable, rawtherapee', delay: 600 },
+            { type: 'output', content: '💡 Recommending: <span class="demo-output info">gimp</span> (powerful, feature-rich, industry standard)', delay: 500 },
+            { type: 'output', content: '\nInstall gimp? [Y/n]', delay: 300 },
+            { type: 'input', content: 'Y', delay: 800 },
+            { type: 'output', content: '✨ Installing gimp...', delay: 500, class: 'success' },
+            { type: 'output', content: '✅ Done! Run \'gimp\' to start editing.', delay: 700, class: 'success' }
+        ]
+    },
+    rust: {
+        command: 'ask-nix "set up rust development environment"',
+        steps: [
+            { type: 'output', content: '🦀 Analyzing Rust development requirements...', delay: 400 },
+            { type: 'output', content: '📦 Packages needed: cargo, rustc, rust-analyzer, rustfmt', delay: 600 },
+            { type: 'output', content: '💡 Setting up complete Rust toolchain with IDE support', delay: 500 },
+            { type: 'output', content: '\nContinue with installation? [Y/n]', delay: 300 },
+            { type: 'input', content: 'Y', delay: 800 },
+            { type: 'output', content: '✨ Installing Rust toolchain...', delay: 600, class: 'success' },
+            { type: 'output', content: '✅ Ready to code! Try \'cargo new my-project\'', delay: 700, class: 'success' }
+        ]
+    },
+    python: {
+        command: 'ask-nix "create python data science environment"',
+        steps: [
+            { type: 'output', content: '🐍 Configuring Python data science stack...', delay: 400 },
+            { type: 'output', content: '📦 Packages: python3, numpy, pandas, matplotlib, jupyter', delay: 600 },
+            { type: 'output', content: '💡 Including Jupyter notebooks and visualization tools', delay: 500 },
+            { type: 'output', content: '\nInstall complete data science environment? [Y/n]', delay: 300 },
+            { type: 'input', content: 'Y', delay: 800 },
+            { type: 'output', content: '✨ Installing packages...', delay: 700, class: 'success' },
+            { type: 'output', content: '✅ Environment ready! Run \'jupyter notebook\' to start.', delay: 700, class: 'success' }
+        ]
+    },
+    gaming: {
+        command: 'ask-nix "install steam and gaming tools"',
+        steps: [
+            { type: 'output', content: '🎮 Setting up gaming environment...', delay: 400 },
+            { type: 'output', content: '📦 Found: steam, lutris, wine, gamemode', delay: 600 },
+            { type: 'output', content: '💡 Recommending: <span class="demo-output info">steam</span> + gamemode for optimal performance', delay: 500 },
+            { type: 'output', content: '\nInstall gaming stack? [Y/n]', delay: 300 },
+            { type: 'input', content: 'Y', delay: 800 },
+            { type: 'output', content: '✨ Installing Steam and optimization tools...', delay: 700, class: 'success' },
+            { type: 'output', content: '✅ Gaming setup complete! Launch Steam to begin.', delay: 700, class: 'success' }
+        ]
+    }
+};
+
+/**
+ * Type text character by character with realistic delays
+ * @param {HTMLElement} element - Target element
+ * @param {string} text - Text to type
+ * @param {number} speed - Typing speed in ms per character
+ * @returns {Promise} - Resolves when typing is complete
+ */
+function typeText(element, text, speed = 30) {
+    return new Promise(resolve => {
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(interval);
+                resolve();
+            }
+        }, speed);
+    });
+}
+
+/**
+ * Run a terminal demo with realistic typing animation
+ * @param {string} demoKey - Key from terminalDemos object
+ */
+async function runTerminalDemo(demoKey) {
+    const demo = terminalDemos[demoKey];
+    if (!demo) return;
+
+    const output = document.getElementById('interactive-terminal-output');
+    if (!output) return;
+
+    // Clear previous content
+    output.innerHTML = '';
+
+    // Add initial command with typing effect
+    const commandLine = document.createElement('div');
+    commandLine.className = 'demo-command-line';
+
+    const prompt = document.createElement('span');
+    prompt.className = 'demo-prompt';
+    prompt.textContent = '$ ';
+
+    const input = document.createElement('span');
+    input.className = 'demo-input';
+
+    commandLine.appendChild(prompt);
+    commandLine.appendChild(input);
+    output.appendChild(commandLine);
+
+    // Type the command
+    await typeText(input, demo.command, 40);
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Execute each step with delays
+    for (const step of demo.steps) {
+        await new Promise(resolve => setTimeout(resolve, step.delay));
+
+        if (step.type === 'output') {
+            const outputDiv = document.createElement('div');
+            outputDiv.className = 'demo-output' + (step.class ? ' ' + step.class : '');
+            outputDiv.innerHTML = step.content;
+            output.appendChild(outputDiv);
+        } else if (step.type === 'input') {
+            const inputLine = document.createElement('div');
+            inputLine.className = 'demo-command-line';
+
+            const inputPrompt = document.createElement('span');
+            inputPrompt.className = 'demo-prompt';
+            inputPrompt.textContent = '$ ';
+
+            const userInput = document.createElement('span');
+            userInput.className = 'demo-input';
+            userInput.textContent = step.content;
+
+            inputLine.appendChild(inputPrompt);
+            inputLine.appendChild(userInput);
+            output.appendChild(inputLine);
+        }
+
+        // Auto-scroll to bottom
+        output.scrollTop = output.scrollHeight;
+    }
+
+    // Track demo interaction
+    trackEvent('Interactive Demo', 'Run', demoKey);
+}
+
+/**
+ * Initialize Interactive Terminal Demo
+ */
+function initInteractiveDemo() {
+    const demoButtons = document.querySelectorAll('.demo-example-btn');
+
+    if (demoButtons.length === 0) return;
+
+    // Add click handlers
+    demoButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active state
+            demoButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Run the demo
+            const demoKey = this.getAttribute('data-demo');
+            runTerminalDemo(demoKey);
+        });
+    });
+
+    // Run the first demo on load
+    const firstDemo = demoButtons[0].getAttribute('data-demo');
+    setTimeout(() => runTerminalDemo(firstDemo), 500);
+}
+
+// Initialize all Phase 9 features
+function initPhase9Features() {
+    initCommunityStats();
+    initInteractiveDemo();
+}
+
+// Update DOMContentLoaded to include Phase 5, 6, 7 & 9 features
 const originalDOMContentLoaded = document.addEventListener;
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
@@ -899,6 +1194,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initPhase5Features(); // Add Phase 5 features
     initPhase6MicroInteractions(); // Add Phase 6 micro-interactions
     initPhase7Features(); // Add Phase 7 features
+    initPhase9Features(); // Add Phase 9 features (Community stats counter animation)
 
     // Optional: Enable performance monitoring in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
