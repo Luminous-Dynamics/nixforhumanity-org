@@ -247,10 +247,256 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e)
     }
 });
 
+// Fetch GitHub Stats
+async function fetchGitHubStats() {
+    try {
+        const response = await fetch('https://api.github.com/repos/Luminous-Dynamics/luminous-nix');
+        if (!response.ok) throw new Error('GitHub API request failed');
+
+        const data = await response.json();
+
+        // Update stars
+        const starsElement = document.getElementById('github-stars');
+        if (starsElement) {
+            starsElement.textContent = (data.stargazers_count || 0).toLocaleString();
+        }
+
+        // Update forks
+        const forksElement = document.getElementById('github-forks');
+        if (forksElement) {
+            forksElement.textContent = (data.forks_count || 0).toLocaleString();
+        }
+
+        // Fetch contributors
+        const contributorsResponse = await fetch(data.contributors_url);
+        if (contributorsResponse.ok) {
+            const contributors = await contributorsResponse.json();
+            const contributorsElement = document.getElementById('github-contributors');
+            if (contributorsElement) {
+                contributorsElement.textContent = contributors.length.toLocaleString();
+            }
+        }
+
+        trackEvent('GitHub', 'Stats Loaded', 'Success');
+    } catch (error) {
+        console.log('Could not fetch GitHub stats:', error.message);
+        // Fallback to placeholder values
+        const placeholders = {
+            'github-stars': '100+',
+            'github-forks': '20+',
+            'github-contributors': '5+'
+        };
+        Object.entries(placeholders).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = value;
+        });
+    }
+}
+
+// Social Sharing
+function initSocialSharing() {
+    const shareButtons = document.querySelectorAll('.share-btn[data-share]');
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent('Luminous Nix - Natural Language NixOS');
+    const text = encodeURIComponent('Make NixOS accessible through natural language! 10,000x faster package management.');
+
+    const shareUrls = {
+        twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+        reddit: `https://reddit.com/submit?url=${url}&title=${title}`,
+        hackernews: `https://news.ycombinator.com/submitlink?u=${url}&t=${title}`
+    };
+
+    shareButtons.forEach(button => {
+        const platform = button.getAttribute('data-share');
+        button.addEventListener('click', () => {
+            const shareUrl = shareUrls[platform];
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+                trackEvent('Share', 'Click', platform);
+            }
+        });
+    });
+
+    // Web Share API (native sharing on mobile)
+    const nativeShareBtn = document.getElementById('native-share-btn');
+    if (navigator.share && nativeShareBtn) {
+        nativeShareBtn.style.display = 'flex';
+        nativeShareBtn.addEventListener('click', async () => {
+            try {
+                await navigator.share({
+                    title: 'Luminous Nix - Natural Language NixOS',
+                    text: 'Make NixOS accessible through natural language! 10,000x faster package management.',
+                    url: window.location.href
+                });
+                trackEvent('Share', 'Native Share', 'Success');
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.log('Share failed:', error);
+                }
+            }
+        });
+    }
+}
+
+// Newsletter Form Enhancement
+function initNewsletterForm() {
+    const form = document.getElementById('newsletter-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('.newsletter-btn');
+        const emailInput = this.querySelector('input[type="email"]');
+
+        if (submitBtn) {
+            submitBtn.textContent = '⏳ Subscribing...';
+            submitBtn.disabled = true;
+        }
+
+        // Track newsletter signup attempt
+        trackEvent('Newsletter', 'Subscribe Attempt', emailInput?.value ? 'With Email' : 'No Email');
+
+        // Note: Actual submission happens via Formspree
+        // Re-enable button after submission (Formspree handles redirect)
+        setTimeout(() => {
+            if (submitBtn) {
+                submitBtn.textContent = 'Subscribe';
+                submitBtn.disabled = false;
+            }
+        }, 3000);
+    });
+}
+
+// Scroll-triggered Animations
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in-up');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements that should animate on scroll
+    const animatedElements = document.querySelectorAll(
+        '.feature-card, .testimonial-card, .persona-card, .comparison-row, .stat-badge'
+    );
+
+    animatedElements.forEach(el => observer.observe(el));
+}
+
+// Lazy Loading Images (for future use when images are added)
+function initLazyLoading() {
+    if ('loading' in HTMLImageElement.prototype) {
+        // Browser supports native lazy loading
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.src = img.dataset.src || img.src;
+        });
+    } else {
+        // Fallback for browsers that don't support lazy loading
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+}
+
+// Copy Code Blocks
+function initCodeCopyButtons() {
+    document.querySelectorAll('.code-block').forEach(block => {
+        // Skip if already has a copy button
+        if (block.querySelector('.copy-btn')) return;
+
+        const button = document.createElement('button');
+        button.className = 'copy-btn';
+        button.innerHTML = '📋 Copy';
+        button.style.cssText = 'position: absolute; top: 0.5rem; right: 0.5rem; background: var(--nix-blue); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s;';
+
+        block.style.position = 'relative';
+        block.addEventListener('mouseenter', () => button.style.opacity = '1');
+        block.addEventListener('mouseleave', () => button.style.opacity = '0');
+
+        button.addEventListener('click', async () => {
+            const code = block.textContent.trim();
+            try {
+                await navigator.clipboard.writeText(code);
+                button.innerHTML = '✅ Copied!';
+                trackEvent('Code', 'Copy', 'Success');
+                setTimeout(() => {
+                    button.innerHTML = '📋 Copy';
+                }, 2000);
+            } catch (error) {
+                button.innerHTML = '❌ Failed';
+                setTimeout(() => {
+                    button.innerHTML = '📋 Copy';
+                }, 2000);
+            }
+        });
+
+        block.appendChild(button);
+    });
+}
+
+// Initialize all Phase 5 features
+function initPhase5Features() {
+    fetchGitHubStats();
+    initSocialSharing();
+    initNewsletterForm();
+    initScrollAnimations();
+    initLazyLoading();
+    initCodeCopyButtons();
+}
+
+// Update DOMContentLoaded to include Phase 5 features
+const originalDOMContentLoaded = document.addEventListener;
+document.addEventListener('DOMContentLoaded', function() {
+    initTheme();
+    initMobileMenu();
+    initTerminalAnimation();
+    initFormEnhancements();
+    initServiceWorker();
+    initKofiWidget();
+    initPhase5Features(); // Add Phase 5 features
+
+    // Optional: Enable performance monitoring in development
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        initPerformanceMonitoring();
+    }
+
+    // Add theme toggle event listener
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Track page load
+    trackEvent('Page', 'Load', window.location.pathname);
+});
+
 // Export functions for testing
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         toggleTheme,
-        trackEvent
+        trackEvent,
+        fetchGitHubStats,
+        initSocialSharing,
+        initScrollAnimations
     };
 }

@@ -625,9 +625,355 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Comparison Table */
+.comparison-section {
+    padding: 4rem 2rem;
+    background: var(--bg-secondary);
+}
+
+.comparison-table {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.comparison-header, .comparison-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 1px;
+    background: var(--card-border);
+}
+
+.comparison-header {
+    font-weight: bold;
+    background: rgba(82, 119, 195, 0.2);
+}
+
+.comparison-cell {
+    padding: 1.5rem;
+    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.comparison-cell.feature {
+    font-weight: bold;
+    color: var(--nix-light);
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.comparison-cell.highlight {
+    background: rgba(82, 119, 195, 0.15);
+    border-left: 3px solid var(--nix-blue);
+}
+
+.comparison-cell code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    display: block;
+}
+
+[data-theme="light"] .comparison-cell code {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.difficulty {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.difficulty.success {
+    color: #27c93f;
+    opacity: 1;
+}
+
+/* Testimonials */
+.testimonials-section {
+    padding: 4rem 2rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.testimonial-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(82, 119, 195, 0.3);
+}
+
+.testimonial-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    opacity: 0.95;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    font-size: 2.5rem;
+}
+
+.author-name {
+    font-weight: bold;
+    color: var(--nix-light);
+}
+
+.author-role {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* GitHub Stats */
+.stats-badges {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stat-badge {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 150px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(82, 119, 195, 0.3);
+}
+
+.stat-icon {
+    font-size: 2rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--sacred-gold);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Newsletter */
+.newsletter-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--deep-purple) 0%, var(--nix-blue) 100%);
+}
+
+.newsletter-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.newsletter-container h2 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.newsletter-container p {
+    color: white;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter-form input[type="email"] {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.newsletter-btn {
+    background: var(--sacred-gold);
+    color: #2E3440;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.newsletter-btn:hover {
+    transform: translateY(-2px);
+}
+
+.newsletter-privacy {
+    font-size: 0.85rem;
+    color: white;
+    opacity: 0.8;
+}
+
+.newsletter-privacy a {
+    color: var(--sacred-gold);
+    text-decoration: underline;
+}
+
+/* Share Buttons */
+.share-section {
+    padding: 3rem 2rem;
+    background: var(--bg-secondary);
+}
+
+.share-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(82, 119, 195, 0.3);
+    background: var(--nix-blue);
+    color: white;
+}
+
+.share-btn svg {
+    flex-shrink: 0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse-on-hover:hover {
+    animation: pulse 1s infinite;
+}
+
+/* Mobile responsive updates */
+@media (max-width: 768px) {
+    .comparison-header, .comparison-row {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-cell.feature {
+        background: rgba(82, 119, 195, 0.1);
+        font-size: 1.1rem;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-badges {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .share-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
 /* Print styles */
 @media print {
-    nav, .theme-toggle, .mobile-menu-btn {
+    nav, .theme-toggle, .mobile-menu-btn, .share-section, .newsletter-section {
         display: none;
     }
 
