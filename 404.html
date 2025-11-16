@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found | Luminous Nix</title>
+    <meta name="description" content="This page doesn't exist. Let us help you find what you're looking for.">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>❄️</text></svg>">
+    <link rel="canonical" href="https://nixforhumanity.org/404.html">
+
     <style>
         :root {
             --nix-blue: #5277C3;
             --nix-light: #7EBAE4;
             --sacred-gold: #FFD700;
             --soft-black: #1a1a2e;
-            --pure-white: #ffffff;
+            --terminal-green: #00ff00;
         }
 
         * {
@@ -23,77 +27,239 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #2d3561);
-            color: var(--pure-white);
+            color: #ffffff;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             padding: 2rem;
         }
 
-        .container {
+        .error-container {
+            text-align: center;
             max-width: 600px;
         }
 
-        h1 {
-            font-size: clamp(3rem, 10vw, 8rem);
-            background: linear-gradient(135deg, var(--nix-light), var(--sacred-gold));
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
             margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        h2 {
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .error-title {
             font-size: 2rem;
-            color: var(--nix-light);
             margin-bottom: 1rem;
+            color: var(--nix-light);
         }
 
-        p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
+        .error-message {
+            font-size: 1.1rem;
             opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
 
-        a {
+        .terminal-example {
+            background: #0a0a0a;
+            border: 2px solid var(--nix-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .terminal-line {
+            margin: 0.5rem 0;
+        }
+
+        .prompt {
+            color: var(--nix-light);
+            font-weight: bold;
+        }
+
+        .command {
+            color: var(--terminal-green);
+        }
+
+        .comment {
+            color: #888;
+        }
+
+        .helpful-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .link-card {
+            background: rgba(82, 119, 195, 0.1);
+            border: 1px solid rgba(82, 119, 195, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem 1rem;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            background: rgba(82, 119, 195, 0.2);
+            border-color: var(--nix-light);
+            box-shadow: 0 10px 30px rgba(82, 119, 195, 0.3);
+        }
+
+        .link-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .link-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .link-desc {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .home-button {
             display: inline-block;
             background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
             color: white;
             padding: 1rem 2rem;
-            border-radius: 30px;
+            border-radius: 25px;
             text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
         }
 
-        a:hover {
-            transform: translateY(-3px);
-        }
-
-        a:focus {
-            outline: 3px solid var(--sacred-gold);
-            outline-offset: 2px;
+        .home-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(82, 119, 195, 0.4);
         }
 
         .snowflake {
             font-size: 4rem;
-            animation: spin 4s linear infinite;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .helpful-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="error-container">
         <div class="snowflake">❄️</div>
-        <h1>404</h1>
-        <h2>Page Not Found</h2>
-        <p>Looks like this path doesn't exist in our Nix configuration. Let's get you back on track!</p>
-        <a href="/">Return Home</a>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-message">
+            Looks like you've wandered into uncharted territory. Don't worry - even the best explorers get lost sometimes!
+        </p>
+
+        <div class="terminal-example">
+            <div class="terminal-line">
+                <span class="prompt">$</span>
+                <span class="command"> ask-nix "where am I?"</span>
+            </div>
+            <div class="terminal-line comment">
+                # You're at a URL that doesn't exist (yet!)
+            </div>
+            <div class="terminal-line">
+                <span class="prompt">$</span>
+                <span class="command"> ask-nix "take me home"</span>
+            </div>
+            <div class="terminal-line comment">
+                # ✨ Redirecting to https://nixforhumanity.org
+            </div>
+        </div>
+
+        <div class="helpful-links">
+            <a href="/" class="link-card">
+                <div class="link-icon">🏠</div>
+                <div class="link-title">Home</div>
+                <div class="link-desc">Start here</div>
+            </a>
+            <a href="/blog/" class="link-card">
+                <div class="link-icon">📚</div>
+                <div class="link-title">Blog</div>
+                <div class="link-desc">Tutorials & guides</div>
+            </a>
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-icon">💻</div>
+                <div class="link-title">GitHub</div>
+                <div class="link-desc">Source code</div>
+            </a>
+            <a href="/#faq" class="link-card">
+                <div class="link-icon">❓</div>
+                <div class="link-title">FAQ</div>
+                <div class="link-desc">Get answers</div>
+            </a>
+        </div>
+
+        <a href="/" class="home-button">← Back to Home</a>
+
+        <p style="margin-top: 2rem; opacity: 0.6; font-size: 0.9rem;">
+            Still lost? Try asking Luminous Nix in natural language - it's what we're best at! 🌟
+        </p>
     </div>
+
+    <script>
+        // Track 404 errors for analytics
+        if (typeof window.gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: '404 - Not Found',
+                page_path: window.location.pathname
+            });
+        }
+    </script>
 </body>
 </html>

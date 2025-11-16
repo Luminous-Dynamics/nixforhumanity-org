@@ -56,9 +56,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Luminous Nix">
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://storage.ko-fi.com">
-    <link rel="preconnect" href="https://formspree.io">
+    <!-- Performance Optimization: Resource Hints (Phase 10) -->
+    <!-- Preconnect to critical external domains (establishes early connections) -->
+    <link rel="preconnect" href="https://storage.ko-fi.com" crossorigin>
+    <link rel="preconnect" href="https://formspree.io" crossorigin>
+    <link rel="preconnect" href="https://github.com">
+
+    <!-- DNS Prefetch for other external domains (faster DNS resolution) -->
+    <link rel="dns-prefetch" href="https://ko-fi.com">
+    <link rel="dns-prefetch" href="https://luminousdynamics.org">
+    <link rel="dns-prefetch" href="https://evolvingresonantcocreationism.com">
+
+    <!-- Preload critical resources (loaded before parser discovers them) -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="script.js" as="script">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -242,6 +253,112 @@
             "@type": "SoftwareApplication",
             "name": "Luminous Nix"
           }
+        }
+      ]
+    }
+    </script>
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Luminous Nix?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Luminous Nix is a natural language interface for NixOS that makes package management accessible to everyone. Instead of learning complex commands, you can simply tell your computer what you want in plain English (or any language). It's like having a friendly expert who translates your requests into NixOS commands."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is this different from regular NixOS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Luminous Nix sits on top of NixOS and provides a conversational interface. You still get all the benefits of NixOS (reproducibility, rollbacks, declarative configuration), but you don't need to memorize commands or read extensive documentation. It's the same powerful system, just 10,000x more accessible."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Luminous Nix free and open source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Luminous Nix is completely free and open source under the MIT License. We believe powerful tools should be accessible to everyone. You can view the source code, contribute improvements, or even fork the project on GitHub."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to know NixOS to use Luminous Nix?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not at all! That's the whole point. Luminous Nix is designed for people who don't know NixOS. Whether you're a complete beginner, someone with ADHD who finds traditional CLIs overwhelming, or an experienced user who wants a faster workflow, Luminous Nix adapts to your needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What languages does it support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Luminous Nix supports natural language input in multiple languages including English, Spanish, French, German, Chinese, Japanese, and more. You can even mix languages in the same conversation! The AI understands context and intent, not just keywords."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How fast is it compared to traditional NixOS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The package operations themselves are just as fast (they use the same underlying NixOS engine). But the time to productivity is 10,000x faster because you don't need to spend weeks learning commands, reading documentation, or debugging syntax errors. Most users accomplish their first task in minutes instead of hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data private and secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Luminous Nix processes your commands locally on your machine. We don't collect or send your data to any external servers (unless you explicitly opt-in to anonymous usage statistics). Your privacy and security are our top priorities."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use voice control?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Luminous Nix supports voice input through your browser's speech recognition API. This makes it accessible for users with motor disabilities, vision impairments, or anyone who prefers speaking to typing. Just click the microphone icon and start talking."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Getting started is easy! First, make sure you have NixOS installed. Then install Luminous Nix with one command: nix-env -iA nixpkgs.luminous-nix. After that, just type ask-nix 'help me get started' and the AI will guide you through the rest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where can I get help or report issues?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We have an active community ready to help! You can open an issue on GitHub, join our Discord server, check the documentation, or ask questions in our community forum. We're here to help you succeed!"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nixforhumanity.org/"
         }
       ]
     }
@@ -723,8 +840,23 @@
             <a href="#install">Install</a>
             <a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer">GitHub</a>
             <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode">🌙</button>
+            <button id="contrast-toggle" class="theme-toggle" aria-label="Toggle high contrast mode" title="High Contrast Mode">⚫</button>
             <a href="#install" class="install-btn">Get Started</a>
         </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+        <ol class="breadcrumb-list">
+            <li class="breadcrumb-item">
+                <a href="/" aria-current="page">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                    Home
+                </a>
+            </li>
+        </ol>
     </nav>
 
     <main id="main-content">

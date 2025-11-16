@@ -27,6 +27,33 @@ function updateThemeIcon(theme) {
     }
 }
 
+// High Contrast Mode Toggle (Phase 10)
+function initHighContrast() {
+    const contrast = localStorage.getItem('contrast') || 'normal';
+    document.documentElement.setAttribute('data-contrast', contrast);
+    updateContrastIcon(contrast);
+}
+
+function toggleHighContrast() {
+    const current = document.documentElement.getAttribute('data-contrast');
+    const next = current === 'high' ? 'normal' : 'high';
+    document.documentElement.setAttribute('data-contrast', next);
+    localStorage.setItem('contrast', next);
+    updateContrastIcon(next);
+
+    // Track high contrast usage
+    trackEvent('Accessibility', 'High Contrast', next);
+}
+
+function updateContrastIcon(contrast) {
+    const toggle = document.getElementById('contrast-toggle');
+    if (toggle) {
+        toggle.textContent = contrast === 'high' ? '⚪' : '⚫';
+        toggle.setAttribute('aria-label', `${contrast === 'high' ? 'Disable' : 'Enable'} high contrast mode`);
+        toggle.setAttribute('aria-pressed', contrast === 'high' ? 'true' : 'false');
+    }
+}
+
 // Mobile Menu Toggle
 function initMobileMenu() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -1182,10 +1209,11 @@ function initPhase9Features() {
     initInteractiveDemo();
 }
 
-// Update DOMContentLoaded to include Phase 5, 6, 7 & 9 features
+// Update DOMContentLoaded to include Phase 5, 6, 7, 9 & 10 features
 const originalDOMContentLoaded = document.addEventListener;
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
+    initHighContrast(); // Phase 10: High contrast mode
     initMobileMenu();
     initTerminalAnimation();
     initFormEnhancements();
@@ -1205,6 +1233,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Add high contrast toggle event listener (Phase 10)
+    const contrastToggle = document.getElementById('contrast-toggle');
+    if (contrastToggle) {
+        contrastToggle.addEventListener('click', toggleHighContrast);
     }
 
     // Track page load
