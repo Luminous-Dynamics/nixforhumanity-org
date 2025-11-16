@@ -2176,6 +2176,175 @@ html {
 }
 
 /* ============================================
+   Phase 12: Enhanced UX Features
+   ============================================ */
+
+/* Copy Code Button */
+.copy-code-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(82, 119, 195, 0.15);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.copy-code-btn:hover {
+    background: rgba(82, 119, 195, 0.3);
+    border-color: var(--nix-light);
+}
+
+.copy-code-btn.copied {
+    background: #48bb78;
+    border-color: #48bb78;
+    color: white;
+}
+
+/* Back to Top Button */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(82, 119, 195, 0.4);
+    z-index: 9998;
+    transition: all 0.3s ease;
+}
+
+.back-to-top-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(82, 119, 195, 0.6);
+}
+
+/* Keyboard Help Modal */
+.keyboard-help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.keyboard-help-modal.visible {
+    opacity: 1;
+}
+
+.keyboard-help-content {
+    background: var(--card-bg);
+    border: 2px solid var(--nix-blue);
+    border-radius: 15px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+    color: var(--nix-light);
+}
+
+.keyboard-help-content h3 {
+    margin: 0 0 1.5rem 0;
+    color: var(--nix-light);
+    font-size: 1.5rem;
+}
+
+.shortcuts-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.shortcut {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: rgba(82, 119, 195, 0.05);
+    border-radius: 8px;
+}
+
+.shortcut kbd {
+    background: var(--soft-black);
+    color: var(--nix-light);
+    padding: 0.35rem 0.75rem;
+    border-radius: 5px;
+    font-family: 'Monaco', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--card-border);
+    min-width: 2.5rem;
+    text-align: center;
+}
+
+.shortcut span {
+    flex: 1;
+    opacity: 0.9;
+}
+
+/* Toast Notification */
+.toast-notification {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--soft-black);
+    color: var(--text-primary);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    border: 1px solid var(--nix-light);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10002;
+    transition: bottom 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.toast-notification.visible {
+    bottom: 2rem;
+}
+
+/* ============================================
    Reduced Motion Accessibility (Phase 10)
    Respects user's preference for reduced motion
    ============================================ */

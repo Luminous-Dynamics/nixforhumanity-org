@@ -364,6 +364,36 @@
     }
     </script>
 
+    <!-- Organization Schema (Phase 12) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Luminous Dynamics",
+      "url": "https://luminousdynamics.org",
+      "logo": "https://nixforhumanity.org/og-image.png",
+      "sameAs": [
+        "https://github.com/Luminous-Dynamics"
+      ],
+      "foundingDate": "2024",
+      "description": "Creating accessible, human-friendly technology that bridges the gap between powerful tools and everyday users.",
+      "subOrganization": {
+        "@type": "Project",
+        "name": "Luminous Nix",
+        "url": "https://nixforhumanity.org",
+        "description": "Natural language interface for NixOS that makes package management accessible to everyone",
+        "sameAs": [
+          "https://github.com/Luminous-Dynamics/luminous-nix"
+        ]
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Support",
+        "url": "https://github.com/Luminous-Dynamics/luminous-nix/issues"
+      }
+    }
+    </script>
+
     <style>
         :root {
             --nix-blue: #5277C3;

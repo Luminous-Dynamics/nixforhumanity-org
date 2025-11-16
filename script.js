@@ -520,6 +520,203 @@ function formatNumber(num) {
 }
 
 // ============================================
+// Phase 12: Web Share API & Enhanced Features
+// ============================================
+
+/**
+ * Native mobile sharing using Web Share API
+ * Falls back to copy-to-clipboard on desktop
+ */
+function initWebShare() {
+    const shareButtons = document.querySelectorAll('[data-share]');
+
+    shareButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const shareData = {
+                title: document.title,
+                text: 'Check out Luminous Nix - Natural Language NixOS for Everyone!',
+                url: window.location.href
+            };
+
+            // Check if Web Share API is supported
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    trackEvent('Share', 'Web Share API', 'Success');
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.log('Share failed:', err);
+                    }
+                }
+            } else {
+                // Fallback: Copy to clipboard
+                try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    showToast('Link copied to clipboard!');
+                    trackEvent('Share', 'Clipboard', 'Success');
+                } catch (err) {
+                    console.log('Copy failed:', err);
+                }
+            }
+        });
+    });
+}
+
+/**
+ * Copy text to clipboard with visual feedback
+ */
+function initCopyToClipboard() {
+    const codeBlocks = document.querySelectorAll('pre code, code');
+
+    codeBlocks.forEach((block) => {
+        if (block.parentElement.tagName !== 'PRE' && block.textContent.length < 20) {
+            return; // Skip inline code snippets
+        }
+
+        const wrapper = block.parentElement.tagName === 'PRE' ? block.parentElement : block;
+        wrapper.style.position = 'relative';
+
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-code-btn';
+        copyButton.innerHTML = '📋';
+        copyButton.setAttribute('aria-label', 'Copy code');
+        copyButton.setAttribute('title', 'Copy to clipboard');
+
+        wrapper.appendChild(copyButton);
+
+        copyButton.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(block.textContent);
+                copyButton.innerHTML = '✓';
+                copyButton.classList.add('copied');
+
+                setTimeout(() => {
+                    copyButton.innerHTML = '📋';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+
+                trackEvent('Code', 'Copy', 'Success');
+            } catch (err) {
+                copyButton.innerHTML = '✗';
+                setTimeout(() => copyButton.innerHTML = '📋', 2000);
+            }
+        });
+    });
+}
+
+/**
+ * Floating back-to-top button
+ */
+function initBackToTop() {
+    const backToTopBtn = document.createElement('button');
+    backToTopBtn.className = 'back-to-top-btn';
+    backToTopBtn.innerHTML = '↑';
+    backToTopBtn.setAttribute('aria-label', 'Scroll to top');
+    backToTopBtn.style.display = 'none';
+    document.body.appendChild(backToTopBtn);
+
+    function toggleButton() {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.display = 'flex';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    }
+
+    window.addEventListener('scroll', toggleButton, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        trackEvent('Navigation', 'Back to Top', 'Click');
+    });
+}
+
+/**
+ * Global keyboard shortcuts
+ */
+function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        // T: Toggle theme
+        if (e.key === 't' && !e.metaKey && !e.ctrlKey) {
+            toggleTheme();
+            trackEvent('Keyboard', 'Shortcut', 'Toggle Theme');
+        }
+
+        // C: Toggle high contrast
+        if (e.key === 'c' && !e.metaKey && !e.ctrlKey) {
+            toggleHighContrast();
+            trackEvent('Keyboard', 'Shortcut', 'Toggle Contrast');
+        }
+
+        // ?: Show help
+        if (e.key === '?' && e.shiftKey) {
+            e.preventDefault();
+            showKeyboardHelp();
+        }
+    });
+}
+
+/**
+ * Show keyboard shortcuts modal
+ */
+function showKeyboardHelp() {
+    const modal = document.createElement('div');
+    modal.className = 'keyboard-help-modal';
+    modal.innerHTML = `
+        <div class="keyboard-help-content">
+            <button class="close-modal" aria-label="Close">×</button>
+            <h3>⌨️ Keyboard Shortcuts</h3>
+            <div class="shortcuts-grid">
+                <div class="shortcut"><kbd>T</kbd><span>Toggle dark/light theme</span></div>
+                <div class="shortcut"><kbd>C</kbd><span>Toggle high contrast</span></div>
+                <div class="shortcut"><kbd>?</kbd><span>Show this help</span></div>
+                <div class="shortcut"><kbd>Esc</kbd><span>Close modals</span></div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('visible'), 10);
+
+    const closeBtn = modal.querySelector('.close-modal');
+    const close = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.remove(), 300);
+    };
+
+    closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) close();
+    });
+
+    const escHandler = (e) => {
+        if (e.key === 'Escape') {
+            close();
+            document.removeEventListener('keydown', escHandler);
+        }
+    };
+    document.addEventListener('keydown', escHandler);
+}
+
+/**
+ * Show toast notification
+ */
+function showToast(message, duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add('visible'), 10);
+    setTimeout(() => {
+        toast.classList.remove('visible');
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+// ============================================
 // Phase 11: Scroll Progress Indicator
 // ============================================
 
@@ -1531,6 +1728,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollProgress(); // Reading progress indicator
     initWebVitals(); // Web Vitals tracking for all users
     initGitHubStats(); // Live GitHub repository stats
+
+    // Phase 12: Content Discovery & User Experience
+    initWebShare(); // Native mobile sharing
+    initCopyToClipboard(); // Copy code snippets
+    initBackToTop(); // Back to top button
+    initKeyboardShortcuts(); // Keyboard shortcuts
 
     // Optional: Enable legacy performance monitoring in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
