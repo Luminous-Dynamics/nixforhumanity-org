@@ -215,43 +215,345 @@ function initKofiWidget() {
     }
 }
 
-// Performance Monitoring (optional)
-function initPerformanceMonitoring() {
-    if ('PerformanceObserver' in window) {
-        try {
-            // Monitor Largest Contentful Paint
-            const lcpObserver = new PerformanceObserver((list) => {
-                const entries = list.getEntries();
-                const lastEntry = entries[entries.length - 1];
-                console.log('LCP:', lastEntry.renderTime || lastEntry.loadTime);
-            });
-            lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+// ============================================
+// Phase 11: Web Vitals Performance Monitoring
+// ============================================
 
-            // Monitor First Input Delay
-            const fidObserver = new PerformanceObserver((list) => {
-                const entries = list.getEntries();
-                entries.forEach((entry) => {
-                    console.log('FID:', entry.processingStart - entry.startTime);
+/**
+ * Enhanced Web Vitals tracking with analytics reporting
+ * Tracks Core Web Vitals: LCP, FID, CLS, FCP, TTFB
+ */
+function initWebVitals() {
+    if (!('PerformanceObserver' in window)) {
+        return; // Browser doesn't support Performance Observer
+    }
+
+    try {
+        // Track Largest Contentful Paint (LCP)
+        // Good: < 2.5s, Needs Improvement: 2.5s - 4s, Poor: > 4s
+        const lcpObserver = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            const lastEntry = entries[entries.length - 1];
+            const lcp = lastEntry.renderTime || lastEntry.loadTime;
+
+            trackEvent('Web Vitals', 'LCP', Math.round(lcp));
+
+            // Send to analytics if available
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'web_vitals', {
+                    event_category: 'Web Vitals',
+                    event_label: 'LCP',
+                    value: Math.round(lcp),
+                    metric_rating: lcp < 2500 ? 'good' : lcp < 4000 ? 'needs-improvement' : 'poor'
                 });
-            });
-            fidObserver.observe({ entryTypes: ['first-input'] });
+            }
+        });
+        lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
 
-            // Monitor Cumulative Layout Shift
-            let clsScore = 0;
-            const clsObserver = new PerformanceObserver((list) => {
-                for (const entry of list.getEntries()) {
-                    if (!entry.hadRecentInput) {
-                        clsScore += entry.value;
-                        console.log('CLS:', clsScore);
-                    }
+        // Track First Input Delay (FID)
+        // Good: < 100ms, Needs Improvement: 100ms - 300ms, Poor: > 300ms
+        const fidObserver = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+                const fid = entry.processingStart - entry.startTime;
+
+                trackEvent('Web Vitals', 'FID', Math.round(fid));
+
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'web_vitals', {
+                        event_category: 'Web Vitals',
+                        event_label: 'FID',
+                        value: Math.round(fid),
+                        metric_rating: fid < 100 ? 'good' : fid < 300 ? 'needs-improvement' : 'poor'
+                    });
                 }
             });
-            clsObserver.observe({ entryTypes: ['layout-shift'] });
-        } catch (e) {
-            // Performance monitoring is optional, fail silently
-            console.log('Performance monitoring unavailable');
+        });
+        fidObserver.observe({ entryTypes: ['first-input'] });
+
+        // Track Cumulative Layout Shift (CLS)
+        // Good: < 0.1, Needs Improvement: 0.1 - 0.25, Poor: > 0.25
+        let clsScore = 0;
+        const clsObserver = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+                if (!entry.hadRecentInput) {
+                    clsScore += entry.value;
+                }
+            }
+        });
+        clsObserver.observe({ entryTypes: ['layout-shift'] });
+
+        // Report CLS when page is hidden (user navigates away)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                trackEvent('Web Vitals', 'CLS', (clsScore * 1000).toFixed(0));
+
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'web_vitals', {
+                        event_category: 'Web Vitals',
+                        event_label: 'CLS',
+                        value: (clsScore * 1000).toFixed(0),
+                        metric_rating: clsScore < 0.1 ? 'good' : clsScore < 0.25 ? 'needs-improvement' : 'poor'
+                    });
+                }
+            }
+        });
+
+        // Track First Contentful Paint (FCP)
+        // Good: < 1.8s, Needs Improvement: 1.8s - 3s, Poor: > 3s
+        const fcpObserver = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+                const fcp = entry.startTime;
+
+                trackEvent('Web Vitals', 'FCP', Math.round(fcp));
+
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'web_vitals', {
+                        event_category: 'Web Vitals',
+                        event_label: 'FCP',
+                        value: Math.round(fcp),
+                        metric_rating: fcp < 1800 ? 'good' : fcp < 3000 ? 'needs-improvement' : 'poor'
+                    });
+                }
+            });
+        });
+        fcpObserver.observe({ entryTypes: ['paint'] });
+
+        // Track Time to First Byte (TTFB)
+        // Good: < 800ms, Needs Improvement: 800ms - 1800ms, Poor: > 1800ms
+        const navigationEntry = performance.getEntriesByType('navigation')[0];
+        if (navigationEntry) {
+            const ttfb = navigationEntry.responseStart;
+
+            trackEvent('Web Vitals', 'TTFB', Math.round(ttfb));
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'web_vitals', {
+                    event_category: 'Web Vitals',
+                    event_label: 'TTFB',
+                    value: Math.round(ttfb),
+                    metric_rating: ttfb < 800 ? 'good' : ttfb < 1800 ? 'needs-improvement' : 'poor'
+                });
+            }
         }
+
+    } catch (e) {
+        // Web Vitals monitoring is optional, fail silently
+        console.log('Web Vitals monitoring unavailable:', e.message);
     }
+}
+
+// Performance Monitoring (optional - kept for backward compatibility)
+function initPerformanceMonitoring() {
+    // Now calls the enhanced Web Vitals function
+    initWebVitals();
+}
+
+// ============================================
+// Phase 11: PWA Install Prompt
+// ============================================
+
+let deferredPrompt;
+let installPromptShown = false;
+
+/**
+ * Smart PWA install prompt that shows after user engagement
+ * Respects user preference and only shows once per session
+ */
+function initPWAInstall() {
+    // Listen for the beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+
+        // Check if user has previously dismissed
+        const dismissed = localStorage.getItem('pwa-install-dismissed');
+        if (dismissed) {
+            return; // Don't show again
+        }
+
+        // Show install prompt after 30 seconds of engagement
+        setTimeout(() => {
+            if (!installPromptShown && deferredPrompt) {
+                showPWAInstallPrompt();
+            }
+        }, 30000);
+    });
+
+    // Listen for successful installation
+    window.addEventListener('appinstalled', () => {
+        trackEvent('PWA', 'Installed', 'Success');
+        deferredPrompt = null;
+    });
+}
+
+/**
+ * Display the PWA install prompt banner
+ */
+function showPWAInstallPrompt() {
+    if (installPromptShown) return;
+
+    installPromptShown = true;
+
+    // Create prompt banner
+    const banner = document.createElement('div');
+    banner.className = 'pwa-install-banner';
+    banner.innerHTML = `
+        <div class="pwa-banner-content">
+            <div class="pwa-banner-icon">❄️</div>
+            <div class="pwa-banner-text">
+                <strong>Install Luminous Nix</strong>
+                <p>Get faster access with our app!</p>
+            </div>
+            <div class="pwa-banner-actions">
+                <button class="pwa-install-btn" id="pwa-install-yes">Install</button>
+                <button class="pwa-dismiss-btn" id="pwa-install-no">Not now</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(banner);
+
+    // Animate in
+    setTimeout(() => banner.classList.add('pwa-banner-visible'), 100);
+
+    // Install button handler
+    document.getElementById('pwa-install-yes').addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+
+        // Show the install prompt
+        deferredPrompt.prompt();
+
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+
+        trackEvent('PWA', 'Install Prompt', outcome);
+
+        // Clear the deferred prompt
+        deferredPrompt = null;
+
+        // Remove banner
+        banner.classList.remove('pwa-banner-visible');
+        setTimeout(() => banner.remove(), 300);
+    });
+
+    // Dismiss button handler
+    document.getElementById('pwa-install-no').addEventListener('click', () => {
+        localStorage.setItem('pwa-install-dismissed', 'true');
+        trackEvent('PWA', 'Install Prompt', 'dismissed');
+
+        banner.classList.remove('pwa-banner-visible');
+        setTimeout(() => banner.remove(), 300);
+    });
+}
+
+// ============================================
+// Phase 11: GitHub Stats Widget
+// ============================================
+
+/**
+ * Fetch and display live GitHub repository statistics
+ */
+async function initGitHubStats() {
+    const widget = document.querySelector('.github-stats-widget');
+    if (!widget) return;
+
+    const repo = 'Luminous-Dynamics/luminous-nix';
+    const apiUrl = `https://api.github.com/repos/${repo}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('GitHub API request failed');
+
+        const data = await response.json();
+
+        // Update widget with live data
+        widget.innerHTML = `
+            <div class="github-stat">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/>
+                </svg>
+                <span>${formatNumber(data.stargazers_count)}</span>
+            </div>
+            <div class="github-stat">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0zM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0z"/>
+                </svg>
+                <span>${formatNumber(data.forks_count)}</span>
+            </div>
+            <div class="github-stat">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <span>${formatNumber(data.open_issues_count)}</span>
+            </div>
+        `;
+
+        // Track successful API call
+        trackEvent('GitHub Stats', 'Loaded', 'Success');
+
+    } catch (error) {
+        console.log('GitHub stats unavailable:', error.message);
+        widget.innerHTML = `
+            <a href="https://github.com/Luminous-Dynamics/luminous-nix" target="_blank" rel="noopener noreferrer" class="github-fallback">
+                ⭐ Star on GitHub
+            </a>
+        `;
+    }
+}
+
+/**
+ * Format numbers with K/M suffixes
+ */
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    }
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+
+// ============================================
+// Phase 11: Scroll Progress Indicator
+// ============================================
+
+/**
+ * Visual reading progress indicator at top of page
+ */
+function initScrollProgress() {
+    // Create progress bar element
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.setAttribute('role', 'progressbar');
+    progressBar.setAttribute('aria-label', 'Reading progress');
+    document.body.appendChild(progressBar);
+
+    // Update progress on scroll
+    function updateProgress() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Calculate progress percentage
+        const maxScroll = documentHeight - windowHeight;
+        const progress = (scrollTop / maxScroll) * 100;
+
+        // Update progress bar
+        progressBar.style.width = Math.min(progress, 100) + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(progress));
+    }
+
+    // Listen to scroll events
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // Initial update
+    updateProgress();
 }
 
 // Analytics Event Tracking (privacy-respecting)
@@ -1209,7 +1511,7 @@ function initPhase9Features() {
     initInteractiveDemo();
 }
 
-// Update DOMContentLoaded to include Phase 5, 6, 7, 9 & 10 features
+// Update DOMContentLoaded to include Phase 5, 6, 7, 9, 10 & 11 features
 const originalDOMContentLoaded = document.addEventListener;
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
@@ -1224,9 +1526,15 @@ document.addEventListener('DOMContentLoaded', function() {
     initPhase7Features(); // Add Phase 7 features
     initPhase9Features(); // Add Phase 9 features (Community stats counter animation)
 
-    // Optional: Enable performance monitoring in development
+    // Phase 11: Advanced Engagement & Performance
+    initPWAInstall(); // Smart PWA install prompts
+    initScrollProgress(); // Reading progress indicator
+    initWebVitals(); // Web Vitals tracking for all users
+    initGitHubStats(); // Live GitHub repository stats
+
+    // Optional: Enable legacy performance monitoring in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        initPerformanceMonitoring();
+        console.log('Development mode: Performance monitoring active');
     }
 
     // Add theme toggle event listener

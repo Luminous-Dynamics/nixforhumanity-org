@@ -1939,6 +1939,52 @@ html {
     font-size: 0.85rem;
 }
 
+/* GitHub Stats Widget (Phase 11) */
+.github-stats-widget {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: rgba(82, 119, 195, 0.05);
+    border-radius: 8px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.github-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.github-stat:hover {
+    color: var(--nix-light);
+}
+
+.github-stat svg {
+    flex-shrink: 0;
+}
+
+.github-stat span {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.github-fallback {
+    color: var(--nix-light);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.github-fallback:hover {
+    text-decoration: underline;
+}
+
 /* Mobile responsive updates */
 @media (max-width: 768px) {
     .comparison-header, .comparison-row {
@@ -2005,6 +2051,128 @@ html {
         background: white;
         color: black;
     }
+}
+
+/* ============================================
+   PWA Install Banner (Phase 11)
+   ============================================ */
+
+.pwa-install-banner {
+    position: fixed;
+    bottom: -200px;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-top: 2px solid var(--nix-blue);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: bottom 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.pwa-banner-visible {
+    bottom: 0;
+}
+
+.pwa-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pwa-banner-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.pwa-banner-text {
+    flex: 1;
+}
+
+.pwa-banner-text strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--nix-light);
+    margin-bottom: 0.25rem;
+}
+
+.pwa-banner-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.pwa-banner-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.pwa-install-btn,
+.pwa-dismiss-btn {
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.pwa-install-btn {
+    background: linear-gradient(135deg, var(--nix-blue), var(--nix-light));
+    color: white;
+}
+
+.pwa-install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(82, 119, 195, 0.4);
+}
+
+.pwa-dismiss-btn {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--card-border);
+}
+
+.pwa-dismiss-btn:hover {
+    background: rgba(82, 119, 195, 0.1);
+    color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+    .pwa-banner-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem 1rem;
+    }
+
+    .pwa-banner-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .pwa-install-btn,
+    .pwa-dismiss-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   Scroll Progress Indicator (Phase 11)
+   ============================================ */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--nix-blue), var(--nix-light), var(--sacred-gold));
+    z-index: 10000;
+    transition: width 0.1s ease;
 }
 
 /* ============================================
